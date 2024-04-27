@@ -104,6 +104,7 @@ int main() {
 			system("cls");
 			break;
 		}
-
-		return 0;
 	}
+
+	return 0;
+}
