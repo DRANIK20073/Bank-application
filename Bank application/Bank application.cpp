@@ -104,6 +104,6 @@ int main() {
 			system("cls");
 			break;
 		}
-
+		//доделать
 		return 0;
 	}
