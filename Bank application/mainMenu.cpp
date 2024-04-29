@@ -53,14 +53,16 @@ void mainMenu()
 			//выход из программы
 			system("cls");
 			cout << "Вы действительно хотите выйти?" << endl;
-			cout << "1.Да " << "2.Нет" << endl;
+			cout << "Y.Да " << "N.Нет" << endl;
 			int exitChoice;
 			exitChoice = _getch();
 			switch (exitChoice) {
-			case '1':
+			case 'Y':
+			case 'y':
 				user.close();
 				exit(0);
-			case '2':
+			case 'N':
+			case 'n':
 				system("cls");
 				break;
 			default:
