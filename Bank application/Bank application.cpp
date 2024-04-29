@@ -1,7 +1,8 @@
-﻿#include "Header.h";
-#include "UserMenu.h";
-#include "Users.h";
+﻿#include "Header.h"
+#include "UserMenu.h"
+#include "Users.h"
 #include "mainMenu.h"
+#include "currencyExchager.h"
 
 int main() {
 	//Локализация

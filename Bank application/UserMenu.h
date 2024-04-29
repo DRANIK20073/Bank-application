@@ -1,7 +1,7 @@
 #pragma once
-#include <iostream>
-using namespace std;
-#include <conio.h>
-#include <fstream>
+#include "mainMenu.h";
+#include "Header.h";
+#include "Users.h";
+#include "currencyExchager.h";
 
 void UserMenu();

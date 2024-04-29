@@ -1,7 +1,4 @@
 #include "UserMenu.h"
-#include "mainMenu.h";
-#include "Header.h";
-#include "Users.h";
 
 void UserMenu()
 {
@@ -23,6 +20,8 @@ void UserMenu()
 			break;
 		case '2':
 			//Конвертер валют
+			system("cls");
+			currencyExchanger();
 			break;
 		case '3':
 			//Кредит

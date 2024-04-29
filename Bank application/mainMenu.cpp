@@ -1,6 +1,4 @@
 #include "mainMenu.h"
-#include "Users.h"
-#include "UserMenu.h"
 
 void mainMenu()
 {
@@ -31,6 +29,10 @@ void mainMenu()
 				Sleep(2000);
 				system("cls");
 				UserMenu();
+			}
+			else {
+				system("cls");
+				newUser.loginUser();
 			}
 			system("pause");
 			system("cls");

@@ -43,13 +43,13 @@ bool Users::loginUser() {
 
 		if (words.size() >= 4 && words[2] == loginInput && words[3] == passwordInput) {
 			userFile.close();
-			cout << "¬ы успешно зарегистрировались.";
 			return true;
 		}
-	}
+		}
 
 	userFile.close();
-	cout << "Ќеправильный логин или пароль." << endl;
+	system("cls");
+	cout << "Ќеправильный логин или пароль, повторите попытку." << endl;
+	Sleep(2000);
 	return false;
 }
-
