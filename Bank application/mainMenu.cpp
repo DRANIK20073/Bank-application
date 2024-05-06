@@ -3,6 +3,7 @@
 void mainMenu()
 {
 	//Объявление пременных
+	bool login = false;
 	bool work = true;
 	Users newUser;
 
@@ -22,17 +23,20 @@ void mainMenu()
 		switch (choice) {
 		case '1':
 			//Логин как пользователь
-			system("cls");
-			if (newUser.loginUser() == true) {
+			while (login == false) {
 				system("cls");
-				cout << "Добро пожаловать!" << endl;
-				Sleep(2000);
-				system("cls");
-				UserMenu();
-			}
-			else {
-				system("cls");
-				newUser.loginUser();
+				if (newUser.loginUser() == true) {
+					login = true;
+					system("cls");
+					cout << "Добро пожаловать!" << endl;
+					Sleep(2000);
+					system("cls");
+					UserMenu();
+				}
+				else {
+					system("cls");
+					newUser.loginUser();
+				}
 			}
 			system("pause");
 			system("cls");

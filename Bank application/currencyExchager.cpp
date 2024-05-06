@@ -19,33 +19,17 @@ void currencyExchanger()
 		cout << "Выберите валюту которую нужно перевести:" << endl;
 		cout << "1.USD" << endl << "2.BYN" << endl << "3.EUR" << endl << "4.RUB" << endl;
 		int old_currency_choice;
-		old_currency_choice = _getch();
-		switch (old_currency_choice) {
-		case '1':
-			old_currency_choice = 1;
-		case '2':
-			old_currency_choice = 2;
-		case '3':
-			old_currency_choice = 3;
-		case '4':
-			old_currency_choice = 4;
-		}
+		cout << "Выбор:";
+		cin >> old_currency_choice;
+		system("cls");
 
 		//Выбор валюты для перевода
 		cout << "Выберите в какую валюту нужно перевести:" << endl;
 		cout << "1.USD" << endl << "2.BYN" << endl << "3.EUR" << endl << "4.RUB" << endl;
 		int new_currency_choice;
-		new_currency_choice = _getch();
-		switch (new_currency_choice) {
-		case '1':
-			new_currency_choice = 1;
-		case '2':
-			new_currency_choice = 2;
-		case '3':
-			new_currency_choice = 3;
-		case '4':
-			new_currency_choice = 4;
-		}
+		cout << "Выбор: ";
+		cin >> new_currency_choice;
+		system("cls");
 
 		//Нахождение нужного курса
 		string old_kind_of_currency = "";

@@ -128,12 +128,14 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Bank application.cpp" />
+    <ClCompile Include="Credit.cpp" />
     <ClCompile Include="CurrencyExchager.cpp" />
     <ClCompile Include="mainMenu.cpp" />
     <ClCompile Include="UserMenu.cpp" />
     <ClCompile Include="Users.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Credit.h" />
     <ClInclude Include="Header.h" />
     <ClInclude Include="CurrencyExchager.h" />
     <ClInclude Include="mainMenu.h" />

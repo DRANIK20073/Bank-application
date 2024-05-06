@@ -25,6 +25,8 @@ void UserMenu()
 			break;
 		case '3':
 			//Кредит
+			system("cls");
+			Credit();
 			break;
 		case '4':
 			//Личный кабинет
