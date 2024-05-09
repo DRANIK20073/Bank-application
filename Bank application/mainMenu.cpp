@@ -26,6 +26,13 @@ void mainMenu()
 			while (login == false) {
 				system("cls");
 				if (newUser.loginUser() == true) {
+					ofstream fout("CurrentUser.txt");
+					fout << newUser.getLastName() << " ";
+					fout << newUser.getName() << " ";
+					fout << newUser.getlogin() << " ";
+					fout << newUser.getPassword() << " ";
+					fout.close();
+
 					login = true;
 					system("cls");
 					cout << "Добро пожаловать!" << endl;

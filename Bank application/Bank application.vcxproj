@@ -131,16 +131,20 @@
     <ClCompile Include="Credit.cpp" />
     <ClCompile Include="CurrencyExchager.cpp" />
     <ClCompile Include="mainMenu.cpp" />
+    <ClCompile Include="userAccount.cpp" />
     <ClCompile Include="UserMenu.cpp" />
     <ClCompile Include="Users.cpp" />
+    <ClCompile Include="userСabinet.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Credit.h" />
     <ClInclude Include="Header.h" />
     <ClInclude Include="CurrencyExchager.h" />
     <ClInclude Include="mainMenu.h" />
+    <ClInclude Include="userAccount.h" />
     <ClInclude Include="UserMenu.h" />
     <ClInclude Include="Users.h" />
+    <ClInclude Include="userСabinet.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -17,6 +17,8 @@ void UserMenu()
 		{
 		case '1':
 			//Счет
+			system("cls");
+			userAccount();
 			break;
 		case '2':
 			//Конвертер валют
@@ -30,6 +32,8 @@ void UserMenu()
 			break;
 		case '4':
 			//Личный кабинет
+			system("cls");
+			userCabinet();
 			break;
 		case 27:
 			system("cls");

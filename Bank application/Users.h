@@ -12,8 +12,24 @@ public:
 
 	void information();
 
+	void showInformation();
+
 	void registration();
 
 	bool loginUser();
+
+	void changePassword();
+
+	void changeName();
+
+	void loadUserInformation(string loginInput, string passwordInput);
+
+	string getName();
+
+	string getLastName();
+
+	string getlogin();
+
+	string getPassword();
 };
 

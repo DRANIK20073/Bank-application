@@ -24,7 +24,7 @@ void currencyExchanger()
 		system("cls");
 
 		//Выбор валюты для перевода
-		cout << "Выберите в какую валюту нужно перевести:" << endl;
+		cout << "Выберите валюту в которую нужно перевести:" << endl;
 		cout << "1.USD" << endl << "2.BYN" << endl << "3.EUR" << endl << "4.RUB" << endl;
 		int new_currency_choice;
 		cout << "Выбор: ";
