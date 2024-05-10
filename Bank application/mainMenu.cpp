@@ -8,8 +8,7 @@ void mainMenu()
 	Users newUser;
 
 	//файл с данными пользователей
-	ofstream user;
-	user.open("Users.txt", ios::app);
+	
 
 	while (work) {
 		cout << "1. Войти как пользователь." << endl;
@@ -42,7 +41,6 @@ void mainMenu()
 				}
 				else {
 					system("cls");
-					newUser.loginUser();
 				}
 			}
 			system("pause");
@@ -72,7 +70,6 @@ void mainMenu()
 			switch (exitChoice) {
 			case 'Y':
 			case 'y':
-				user.close();
 				exit(0);
 			case 'N':
 			case 'n':

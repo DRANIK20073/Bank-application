@@ -7,5 +7,6 @@
 #include <stdlib.h>
 #include <vector>
 #include <sstream>
+#include <cstdio>
 using namespace std;
 
