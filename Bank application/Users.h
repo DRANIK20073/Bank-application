@@ -22,6 +22,8 @@ public:
 
 	void changeName();
 
+	void changeLastName();
+
 	void loadUserInformation(string loginInput, string passwordInput);
 
 	string getName();
