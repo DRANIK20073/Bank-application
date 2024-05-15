@@ -7,14 +7,18 @@ void mainMenu()
 	bool work = true;
 	Users newUser;
 
-	//файл с данными пользователей
-	
-
 	while (work) {
-		cout << "1. Войти как пользователь." << endl;
-		cout << "2. Войти как администратор." << endl;
-		cout << "3. Зарегистрироваться." << endl;
-		cout << "Esc. Выход";
+		ifstream BankLogo("BankLogo.txt");
+		string line;
+
+		while (getline(BankLogo, line)) {
+			cout << line << endl;
+		}
+		cout << endl; 
+		cout << "					      1. Войти как пользователь." << endl;
+		cout << "					      2. Войти как администратор." << endl;
+		cout << "					      3. Зарегистрироваться." << endl;
+		cout << "					      Esc. Выход";
 
 		int choice;
 		choice = _getch();
