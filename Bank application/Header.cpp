@@ -8,7 +8,7 @@ void settings()
 	structCursorInfo.bVisible = false; // изменяем видимость курсора
 	SetConsoleCursorInfo(hStdOut, &structCursorInfo);
 
-	system("mode con cols=68 lines=33");
+	system("mode con cols=68 lines=32");
 	HWND consoleWindow = GetConsoleWindow();
 	SetWindowLongPtr(consoleWindow, GWL_STYLE, GetWindowLongPtr(consoleWindow, GWL_STYLE) & ~WS_THICKFRAME);
 	SetWindowLongPtr(consoleWindow, GWL_STYLE, GetWindowLongPtr(consoleWindow, GWL_STYLE) & ~WS_MAXIMIZEBOX);
@@ -17,6 +17,12 @@ void settings()
 
 void tab()
 {
+	cout << "          ";
+}
+
+void center()
+{
+	cout << "\n\n\n\n\n\n\n\n";
 	cout << "          ";
 }
 

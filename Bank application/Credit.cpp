@@ -1,71 +1,85 @@
 #include "Credit.h"
 
-void menu() {
-}
-
-double annuity_credit(double sum, double annual_interest_rate, double credit_months) {
-    double month_interest_rate = annual_interest_rate / 1200;
-    double month_payment = (sum * month_interest_rate) / (1 - pow((1 + month_interest_rate), -credit_months));
-    return month_payment;
-}
-
-void Credit() {
-    ofstream credit("Credit.txt");
-    credit << 9 << endl << 16 << endl;
-    credit.close();
-
+void case1() {
+    system("cls");
     double sum;
     double annual_interest_rate;
     int credit_years;
-
-    cout << "Введите сумму кредита в белорусских рублях: ";
+    center();cout << "------------------------------------------------------------" << endl;
+    tab();cout << "       Введите сумму кредита в белорусских рублях: ";
     cin >> sum;
-
-    cout << "Наш банк может предложить вам два варианта годовой ставки." << endl;
+    tab();cout << "------------------------------------------------------------" << endl;
+    tab();cout << "       Выберите вариант годовой ставки.";
     ifstream credits("Credit.txt");
     double rate1, rate2;
     credits >> rate1 >> rate2;
-    cout << "Выберите один из вариантов: " << "1) " << rate1 << "%, 2) " << rate2 << "%." << endl;
-
+    cout << " 1) " << rate1 << "%, 2) " << rate2 << "%." << endl;
     char annual_interest_rate_choice = _getch();
     switch (annual_interest_rate_choice) {
     case '1':
         annual_interest_rate = rate1;
+        tab();cout << "       Вы выбрали " << rate1 << "%" << endl;
         break;
     case '2':
         annual_interest_rate = rate2;
+        tab();cout << "       Вы выбрали " << rate2 << "%" << endl;
         break;
     default:
-        cout << "Неправильный выбор. Выбран первый вариант." << endl;
+        tab();cout << "       Неверный выбор. Автоматически выбран вариант 1." << endl;
         annual_interest_rate = rate1;
         break;
     }
-
-    cout << "Введите срок кредита в годах: ";
+    tab();cout << "------------------------------------------------------------" << endl;
+    tab();cout << "       Введите срок кредита в годах: ";
     cin >> credit_years;
     int credit_months = credit_years * 12;
+    tab();cout << "-------------------------[Результат]------------------------" << endl;
+    double month_interest_rate = annual_interest_rate / 1200;
+    double month_payment = (sum * month_interest_rate) / (1 - pow((1 + month_interest_rate), -credit_months));
+    tab();cout << "       Ежемесячный платеж по кредиту: " << month_payment << endl;
+    //Выход
+    tab();cout << "------------------------------------------------------------" << endl;
 
-    double month_payment = annuity_credit(sum, annual_interest_rate, credit_months);
-    cout << "Ежемесячный платеж по кредиту: " << month_payment << endl << endl;
-
-    cout << "Желаете продолжить?" << endl;
-    cout << "Y. Да " << "N. Нет" << endl;
+    tab();tab();cout << "       1.Взять кредит(В разработке)" << endl;
+    tab();tab();cout << "       2.Вернуться в меню" << endl;
     char exitChoice = _getch();
-    switch (exitChoice) {
-    case 'Y':
-    case 'y':
-        system("cls");
-        Credit();
+    bool Work = true;
+    while (Work) {
+        switch (exitChoice) {
+        case '1':
+            //ДОПИСАТЬ!!!
+        case '2':
+            system("cls");
+            Credit();
+            break;
+        default:
+            cout << "Неправильный выбор попробуйте еще раз.";
+            break;
+        }
         break;
-    case 'N':
-    case 'n':
-        system("cls");
+    }
+}
+
+void Credit() {
+    //Проценты годовой ставки
+    ofstream credit("Credit.txt");
+    credit << 9 << endl << 16 << endl;
+    credit.close();
+
+    system("mode con cols=80 lines=30");
+    //Меню
+    center();cout << "---------------------------[Кредит]-------------------------" << endl;
+    tab();tab();tab();cout << "  1.Начать" << endl;
+    tab();tab();tab();cout << "  Esc.Вернуться в меню" << endl;
+    tab();cout << "------------------------------------------------------------" << endl;
+
+    int choice = _getch();
+    switch (choice) {
+    case '1':
+        case1();
+        break;
+    case 27:
         UserMenu();
-        break;
-    default:
-        cout << "Неверный выбор. Пожалуйста, выберите Да или Нет." << endl;
-        Sleep(3000);
-        system("cls");
         break;
     }
 }

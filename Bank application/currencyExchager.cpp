@@ -66,7 +66,7 @@ void currencyExchanger()
 
 		//Ввод количества обмениваемой валюты
 		cout << "Введите количество " << old_kind_of_currency << ", которое хотите обменять : ";
-		double amount_old_value = 0; 
+		double amount_old_value = 0;
 		cin >> amount_old_value;
 
 		//Перевод валюты
@@ -78,22 +78,28 @@ void currencyExchanger()
 		cout << endl << "Хотите продолжить?" << endl;
 		cout << "Y.Да. " << "N.Нет." << endl;
 		int choice;
+		work = true;
 		choice = _getch();
-		switch (choice) {
-		case 'Y':
-		case 'y':
-			system("cls");
-			continue;
-			break;
-		case 'N':
-		case 'n':
-			system("cls");
-			UserMenu();
-		default:
-			cout << "Неверный выбор. Пожалуйста, выберите Да или Нет." << endl;
-			Sleep(3000);
-			system("cls");
-			break;
+		while (work) {
+			switch (choice) {
+			case 'Y':
+			case 'y':
+				system("cls");
+				continue;
+				break;
+			case 'N':
+			case 'n':
+				system("cls");
+				work = false;
+				UserMenu();
+				break;
+			default:
+				system("cls");
+				cout << "Неверный выбор. Пожалуйста, выберите Да или Нет." << endl;
+				Sleep(2000);
+				system("cls");
+				break;
+			}
 		}
 	}
 }

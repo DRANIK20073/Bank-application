@@ -2,7 +2,7 @@
 
 void UserMenu()
 {
-	system("mode con cols=68 lines=34"); //Размер окна
+	system("mode con cols=68 lines=33"); //Размер окна
 
 	//Меню
 	bank_logo();

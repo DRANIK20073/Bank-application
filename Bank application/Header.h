@@ -14,4 +14,6 @@ void settings();
 
 void tab();
 
+void center();
+
 void bank_logo();

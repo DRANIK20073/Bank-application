@@ -38,7 +38,7 @@ void mainMenu()
 					bank_logo();
 					cout << endl;
 					tab();tab(); cout << "     Добро пожаловать!" << endl;
-					Sleep(2000);
+					Sleep(1000);
 					system("cls");
 					UserMenu();
 				}
@@ -97,7 +97,7 @@ void mainMenu()
 			system("cls");
 			bank_logo();
 			cout << endl;
-			tab();cout << "Неверный выбор. Пожалуйста, выберите опцию от 1 до 4." << endl;
+			tab();cout << "Неверный выбор. Пожалуйста, выберите опцию от 1 до 3." << endl;
 			Sleep(1000);
 			system("cls");
 			break;
