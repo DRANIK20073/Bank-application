@@ -1,5 +1,8 @@
 #include "Credit.h"
 
+void menu() {
+}
+
 double annuity_credit(double sum, double annual_interest_rate, double credit_months) {
     double month_interest_rate = annual_interest_rate / 1200;
     double month_payment = (sum * month_interest_rate) / (1 - pow((1 + month_interest_rate), -credit_months));

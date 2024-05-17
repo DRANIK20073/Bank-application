@@ -10,3 +10,8 @@
 #include <cstdio>
 using namespace std;
 
+void settings();
+
+void tab();
+
+void bank_logo();

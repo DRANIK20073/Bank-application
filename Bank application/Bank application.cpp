@@ -7,7 +7,8 @@ int main() {
 	setlocale(0, " ");
 	SetConsoleCP(1251);
 	SetConsoleOutputCP(1251);
-	
+
+	settings();
 	mainMenu();
 
 	return 0;

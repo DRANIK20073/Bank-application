@@ -2,11 +2,16 @@
 
 void UserMenu()
 {
-	cout << "1.Счет" << endl;
-	cout << "2.Конвертер валют" << endl;
-	cout << "3.Кредит" << endl;
-	cout << "4.Личный кабинет" << endl;
-	cout << "Esc. Вернуться в меню";
+	system("mode con cols=68 lines=34"); //Размер окна
+
+	//Меню
+	bank_logo();
+	cout << endl;
+	tab();tab(); cout << "	1.Счет" << endl;
+	tab();tab(); cout << "	2.Конвертер валют" << endl;
+	tab();tab(); cout << "	3.Кредит" << endl;
+	tab();tab(); cout << "	4.Личный кабинет" << endl;
+	tab();tab(); cout << "	Esc.Вернуться в меню";
 
 	int choice;
 	choice = _getch();

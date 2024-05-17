@@ -25,9 +25,9 @@ void Users::registration() {
 bool Users::loginUser() {
 	string loginInput;
 	string passwordInput;
-	cout << "Логин: ";
+	tab();tab(); cout << "	 Логин: ";
 	cin >> loginInput;
-	cout << "Пароль: ";
+	tab();tab(); cout << "	 Пароль: ";
 	cin >> passwordInput;
 
 	ifstream userFile("Users.txt");
@@ -56,10 +56,10 @@ bool Users::loginUser() {
 }
 
 void Users::loadUserInformation(string loginInput, string passwordInput) {
-	ifstream userFile("Users.txt");
+	ifstream fin("Users.txt");
 	string line;
 
-	while (getline(userFile, line)) {
+	while (getline(fin, line)) {
 		stringstream ss(line);
 		string currentLastName, currentName, currentLogin, currentPassword;
 
@@ -74,7 +74,7 @@ void Users::loadUserInformation(string loginInput, string passwordInput) {
 		}
 	}
 
-	userFile.close();
+	fin.close();
 }
 
 string Users::getName()

@@ -130,6 +130,7 @@
     <ClCompile Include="Bank application.cpp" />
     <ClCompile Include="Credit.cpp" />
     <ClCompile Include="CurrencyExchager.cpp" />
+    <ClCompile Include="Header.cpp" />
     <ClCompile Include="mainMenu.cpp" />
     <ClCompile Include="userAccount.cpp" />
     <ClCompile Include="UserMenu.cpp" />

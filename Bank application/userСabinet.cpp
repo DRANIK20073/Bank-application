@@ -7,8 +7,8 @@ void userCabinet()
 	currentUser.showInformation();
 	cout << endl;
 	cout << "1.Изменить имя." << endl;
-	cout << "2.Изменить пароль." << endl;
-	cout << "3.Изменить фамилию." << endl;
+	cout << "2.Изменить фамилию." << endl;
+	cout << "3.Изменить пароль." << endl;
 	cout << "Esc.Вернуться в меню.";
 
 	int choice;
@@ -21,11 +21,11 @@ void userCabinet()
 		break;
 	case '2':
 		system("cls");
-		currentUser.changePassword();
+		currentUser.changeLastName();
 		break;
 	case '3':
 		system("cls");
-		currentUser.changeLastName();
+		currentUser.changePassword();
 		break;
 	case 27:
 		system("cls");

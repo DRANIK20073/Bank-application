@@ -8,17 +8,12 @@ void mainMenu()
 	Users newUser;
 
 	while (work) {
-		ifstream BankLogo("BankLogo.txt");
-		string line;
-
-		while (getline(BankLogo, line)) {
-			cout << line << endl;
-		}
+		bank_logo();
 		cout << endl; 
-		cout << "					      1. Войти как пользователь." << endl;
-		cout << "					      2. Войти как администратор." << endl;
-		cout << "					      3. Зарегистрироваться." << endl;
-		cout << "					      Esc. Выход";
+		tab();tab(); cout << "1.Войти как пользователь." << endl;
+		tab();tab(); cout << "2.Войти как администратор." << endl;
+		tab();tab(); cout << "3.Зарегистрироваться." << endl;
+		tab();tab(); cout << "Esc.Выход";
 
 		int choice;
 		choice = _getch();
@@ -28,6 +23,8 @@ void mainMenu()
 			//Логин как пользователь
 			while (login == false) {
 				system("cls");
+				bank_logo();
+				cout << endl;
 				if (newUser.loginUser() == true) {
 					ofstream fout("CurrentUser.txt");
 					fout << newUser.getLastName() << " ";
@@ -38,7 +35,9 @@ void mainMenu()
 
 					login = true;
 					system("cls");
-					cout << "Добро пожаловать!" << endl;
+					bank_logo();
+					cout << endl;
+					tab();tab(); cout << "     Добро пожаловать!" << endl;
 					Sleep(2000);
 					system("cls");
 					UserMenu();
@@ -57,6 +56,8 @@ void mainMenu()
 		case '3': {
 			//Регистрация
 			system("cls");
+			bank_logo();
+			cout << endl;
 			newUser.information();
 			newUser.registration();
 			cout << "Регистрация завершена." << endl;
@@ -67,8 +68,10 @@ void mainMenu()
 		case 27: {
 			//выход из программы
 			system("cls");
-			cout << "Вы действительно хотите выйти?" << endl;
-			cout << "Y.Да " << "N.Нет" << endl;
+			bank_logo();
+			cout << endl;
+			tab();tab();cout << "Вы действительно хотите выйти?" << endl;
+			tab();tab();cout << "Y.Да " << "N.Нет" << endl;
 			int exitChoice;
 			exitChoice = _getch();
 			switch (exitChoice) {
@@ -81,8 +84,10 @@ void mainMenu()
 				break;
 			default:
 				system("cls");
-				cout << "Неверный выбор. Пожалуйста, выберите опцию от 1 до 2." << endl;
-				Sleep(3000);
+				bank_logo();
+				cout << endl;
+				tab();cout << "Неверный выбор. Пожалуйста, выберите опцию от 1 до 2." << endl;
+				Sleep(1000);
 				break;
 			}
 			system("cls");
@@ -90,8 +95,10 @@ void mainMenu()
 		}
 		default:
 			system("cls");
-			cout << "Неверный выбор. Пожалуйста, выберите опцию от 1 до 4." << endl;
-			Sleep(3000);
+			bank_logo();
+			cout << endl;
+			tab();cout << "Неверный выбор. Пожалуйста, выберите опцию от 1 до 4." << endl;
+			Sleep(1000);
 			system("cls");
 			break;
 		}
