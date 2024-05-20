@@ -41,14 +41,14 @@ void case1() {
     tab();cout << "------------------------------------------------------------" << endl;
 
     tab();tab();cout << "       1.Взять кредит(В разработке)" << endl;
-    tab();tab();cout << "       2.Вернуться в меню" << endl;
+    tab();tab();cout << "       Esc.Вернуться в меню" << endl;
     char exitChoice = _getch();
     bool Work = true;
     while (Work) {
         switch (exitChoice) {
         case '1':
             //ДОПИСАТЬ!!!
-        case '2':
+        case 27:
             system("cls");
             Credit();
             break;
@@ -70,7 +70,7 @@ void Credit() {
     //Меню
     center();cout << "---------------------------[Кредит]-------------------------" << endl;
     tab();tab();tab();cout << "  1.Начать" << endl;
-    tab();tab();tab();cout << "  Esc.Вернуться в меню" << endl;
+    tab();tab();tab();cout << "  Esc.Выйти в меню" << endl;
     tab();cout << "------------------------------------------------------------" << endl;
 
     int choice = _getch();
