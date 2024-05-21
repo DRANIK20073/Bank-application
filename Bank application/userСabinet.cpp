@@ -2,14 +2,15 @@
 
 void userCabinet()
 {
+	system("mode con cols=80 lines=26");
 	Users currentUser;
-	cout << "Добро пожаловать, " << currentUser.getName() << "." << endl;
+	center();cout << "----------------------[Личный кабинет]----------------------" << endl;
 	currentUser.showInformation();
-	cout << endl;
-	cout << "1.Изменить имя." << endl;
-	cout << "2.Изменить фамилию." << endl;
-	cout << "3.Изменить пароль." << endl;
-	cout << "Esc.Вернуться в меню.";
+	tab();cout << "------------------------------------------------------------" << endl;
+	tab();tab();cout << "\t\t1.Изменить имя." << endl;
+	tab();tab();cout << "\t\t2.Изменить фамилию." << endl;
+	tab();tab();cout << "\t\t3.Изменить пароль." << endl;
+	tab();tab();cout << "\t\tEsc.Вернуться в меню.";
 
 	int choice;
 	choice = _getch();
@@ -33,8 +34,10 @@ void userCabinet()
 		break;
 	default:
 		system("cls");
-		cout << "Неверный выбор. Пожалуйста, выберите опцию от 1 до 2." << endl;
-		Sleep(3000);
+		center();cout << "------------------------------------------------------------" << endl;
+		tab();cout << "  Неверный выбор. Пожалуйста, выберите опцию от 1 до 3." << endl;
+		tab();cout << "------------------------------------------------------------" << endl;
+		Sleep(2000);
 		system("cls");
 		break;
 	}

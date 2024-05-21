@@ -148,150 +148,215 @@ void Users::showInformation() {
 
 	fin.close();
 
-	cout << "Фамилия: " << lastName << endl;
-	cout << "Имя: " << name << endl;
-	cout << "Логин: " << login << endl;
-	cout << "Пароль: " << password << endl;
+	tab();tab();tab();cout << "   Фамилия: " << lastName << endl;
+	tab();tab();tab();cout << "   Имя: " << name << endl;
+	tab();tab();tab();cout << "   Логин: " << login << endl;
+	tab();tab();tab();cout << "   Пароль: " << password << endl;
 }
 
 void Users::changePassword()
-{
+{	
+	center();cout << "------------------------------------------------------------" << endl;
 	string newPassword;
-	cout << "Введите новый пароль: ";
+	tab();tab();cout << "\t     Введите новый пароль: ";
 	cin >> newPassword;
+	tab();cout << "------------------------------------------------------------" << endl;
+	tab();tab();cout << "\t    1.Подтвердить изменения" << endl;
+	tab();tab();cout << "\t    2.Ввести данные заново" << endl;
+	tab();tab();cout << "\t    Esc.Выйти в меню" << endl;
 
 	ifstream fin("Users.txt");
 	ofstream fout("temp.txt");
 	string line;
 	bool userFound = false;
 
-	while (getline(fin, line)) {
-		stringstream ss(line);
-		string currentLastName, currentName, currentLogin, currentPassword;
+	int choice = _getch();
+	switch (choice)
+	{
+	case '1':
+		while (getline(fin, line)) {
+			stringstream ss(line);
+			string currentLastName, currentName, currentLogin, currentPassword;
 
-		ss >> currentLastName >> currentName >> currentLogin >> currentPassword;
+			ss >> currentLastName >> currentName >> currentLogin >> currentPassword;
 
-		if (currentLogin == login && currentPassword == password) {
-			fout << currentLastName << " " << currentName << " " << currentLogin << " " << newPassword << endl;
-			userFound = true;
+			if (currentLogin == login && currentPassword == password) {
+				fout << currentLastName << " " << currentName << " " << currentLogin << " " << newPassword << endl;
+				userFound = true;
+			}
+			else {
+				fout << line << endl;
+			}
+		}
+
+		fin.close();
+		fout.close();
+
+		if (userFound) {
+			remove("Users.txt");
+			rename("temp.txt", "Users.txt");
+			password = newPassword;
+
+			ofstream currentUser("currentUser.txt");
+			currentUser << lastName << " " << name << " " << login << " " << password << endl;
+			currentUser.close();
+
+			tab();tab();tab();cout << "Пароль успешно изменен!" << endl;
+			Sleep(1000);
 		}
 		else {
-			fout << line << endl; 
+			cout << "Пользователь не найден." << endl;
+			remove("temp.txt");
 		}
-	}
-
-	fin.close();
-	fout.close();
-
-	if (userFound) {
-		remove("Users.txt");
-		rename("temp.txt", "Users.txt");
-		password = newPassword;
-
-		ofstream currentUser("currentUser.txt");
-		currentUser << lastName << " " << name << " " << login << " " << password << endl;
-		currentUser.close();
-
-		cout << "Пароль успешно изменен!" << endl;
-		Sleep(1000);
-	}
-	else {
-		cout << "Пользователь не найден." << endl;
-		remove("temp.txt");
+		break;
+	case '2':
+		system("cls");
+		changePassword();
+		break;
+	case 27:
+		system("cls");
+		userCabinet();
+		break;
+	default:
+		break;
 	}
 }
 
 
 void Users::changeName()
 {
+	center();cout << "------------------------------------------------------------" << endl;
 	string newName;
-	cout << "Введите новое имя: ";
+	tab();tab();cout << "\t    Введите новое имя: ";
 	cin >> newName;
+	tab();cout << "------------------------------------------------------------" << endl;
+	tab();tab();cout << "\t    1.Подтвердить изменения" << endl;
+	tab();tab();cout << "\t    2.Ввести данные заново" << endl;
+	tab();tab();cout << "\t    Esc.Выйти в меню" << endl;
 	
 	ifstream fin("Users.txt");
 	ofstream fout("temp.txt");
 	string line;
 	bool userFound = false;
 
-	while (getline(fin, line)) {
-		stringstream ss(line);
-		string currentLastName, currentName, currentLogin, currentPassword;
+	int choice = _getch();
+	switch (choice) {
+	case '1':
+		while (getline(fin, line)) {
+			stringstream ss(line);
+			string currentLastName, currentName, currentLogin, currentPassword;
 
-		ss >> currentLastName >> currentName >> currentLogin >> currentPassword;
+			ss >> currentLastName >> currentName >> currentLogin >> currentPassword;
 
-		if (currentLogin == login && currentPassword == password) {
-			fout << currentLastName << " " << newName << " " << currentLogin << " " << currentPassword << endl;
-			userFound = true;
+			if (currentLogin == login && currentPassword == password) {
+				fout << currentLastName << " " << newName << " " << currentLogin << " " << currentPassword << endl;
+				userFound = true;
+			}
+			else {
+				fout << line << endl;
+			}
+		}
+
+		fin.close();
+		fout.close();
+
+		if (userFound) {
+			remove("Users.txt");
+			rename("temp.txt", "Users.txt");
+			name = newName;
+
+			ofstream currentUser("currentUser.txt");
+			currentUser << lastName << " " << name << " " << login << " " << password << endl;
+			currentUser.close();
+
+			tab();tab();tab();cout << "Имя успешно изменен!" << endl;
+			Sleep(1000);
 		}
 		else {
-			fout << line << endl;
+			cout << "Пользователь не найден." << endl;
+			remove("temp.txt");
 		}
+		break;
+	case '2':
+		system("cls");
+		changeName();
+		break;
+	case 27:
+		system("cls");
+		userCabinet();
+		break;
+	default:
+		break;
 	}
-
-	fin.close();
-	fout.close();
-
-	if (userFound) {
-		remove("Users.txt");
-		rename("temp.txt", "Users.txt");
-		name = newName;
-
-		ofstream currentUser("currentUser.txt");
-		currentUser << lastName << " " << name << " " << login << " " << password << endl;
-		currentUser.close();
-
-		cout << "Имя успешно изменен!" << endl;
-		Sleep(1000);
-	}
-	else {
-		cout << "Пользователь не найден." << endl;
-		remove("temp.txt");
-	}
+	
+	
 }
 
 void Users::changeLastName()
 {
+	center();cout << "------------------------------------------------------------" << endl;
 	string newLastName;
-	cout << "Введите новую фамилию: ";
+	tab();tab();cout << "\t   Введите новую фамилию: ";
 	cin >> newLastName;
+	tab();cout << "------------------------------------------------------------" << endl;
+	tab();tab();cout << "\t    1.Подтвердить изменения" << endl;
+	tab();tab();cout << "\t    2.Ввести данные заново" << endl;
+	tab();tab();cout << "\t    Esc.Выйти в меню" << endl;
 
 	ifstream fin("Users.txt");
 	ofstream fout("temp.txt");
 	string line;
 	bool userFound = false;
 
-	while (getline(fin, line)) {
-		stringstream ss(line);
-		string currentLastName, currentName, currentLogin, currentPassword;
+	//Подтверждение изменений
+	int choice = _getch();
+	switch (choice) {
+	case '1':
 
-		ss >> currentLastName >> currentName >> currentLogin >> currentPassword;
+		while (getline(fin, line)) {
+			stringstream ss(line);
+			string currentLastName, currentName, currentLogin, currentPassword;
 
-		if (currentLogin == login && currentPassword == password) {
-			fout << newLastName << " " << currentName << " " << currentLogin << " " << currentPassword << endl;
-			userFound = true;
+			ss >> currentLastName >> currentName >> currentLogin >> currentPassword;
+
+			if (currentLogin == login && currentPassword == password) {
+				fout << newLastName << " " << currentName << " " << currentLogin << " " << currentPassword << endl;
+				userFound = true;
+			}
+			else {
+				fout << line << endl;
+			}
+		}
+
+		fin.close();
+		fout.close();
+
+		if (userFound) {
+			remove("Users.txt");
+			rename("temp.txt", "Users.txt");
+			lastName = newLastName;
+
+			ofstream currentUser("currentUser.txt");
+			currentUser << lastName << " " << name << " " << login << " " << password << endl;
+			currentUser.close();
+
+			tab();tab();tab();cout << "Фамилия успешно изменена!" << endl;
+			Sleep(1000);
 		}
 		else {
-			fout << line << endl;
+			cout << "Пользователь не найден." << endl;
+			remove("temp.txt");
 		}
-	}
-
-	fin.close();
-	fout.close();
-
-	if (userFound) {
-		remove("Users.txt");
-		rename("temp.txt", "Users.txt");
-		lastName = newLastName;
-
-		ofstream currentUser("currentUser.txt");
-		currentUser << lastName << " " << name << " " << login << " " << password << endl;
-		currentUser.close();
-
-		cout << "Фамилия успешно изменена!" << endl;
-		Sleep(1000);
-	}
-	else {
-		cout << "Пользователь не найден." << endl;
-		remove("temp.txt");
+		break;
+	case '2':
+		system("cls");
+		changeLastName();
+		break;
+	case 27:
+		system("cls");
+		userCabinet();
+		break;
+	default:
+		break;
 	}
 }

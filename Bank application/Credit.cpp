@@ -66,7 +66,7 @@ void Credit() {
     credit << 9 << endl << 16 << endl;
     credit.close();
 
-    system("mode con cols=80 lines=30");
+    system("mode con cols=80 lines=20");
     //Меню
     center();cout << "---------------------------[Кредит]-------------------------" << endl;
     tab();tab();tab();cout << "  1.Начать" << endl;
@@ -76,6 +76,7 @@ void Credit() {
     int choice = _getch();
     switch (choice) {
     case '1':
+        system("mode con cols=80 lines=28");
         case1();
         break;
     case 27:

@@ -94,7 +94,7 @@ void exchanger() {
 			break;
 		default:
 			system("cls");
-			exchanger();
+			currencyExchanger();
 			break;
 		}
 	}
@@ -112,7 +112,7 @@ void currencyExchanger()
 	//RUB
 	double RUB[4]{ 0.011, 0.0354, 0.01, 1 }; //$, bel rub, euro, rus rub.
 
-	system("mode con cols=80 lines=30");
+	system("mode con cols=80 lines=24");
 
 	//Меню
 	center();cout << "---------------------[Актуальные курсы]---------------------" << endl;
