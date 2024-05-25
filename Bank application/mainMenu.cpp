@@ -60,7 +60,6 @@ void mainMenu()
 			cout << endl;
 			newUser.information();
 			newUser.registration();
-			cout << "Регистрация завершена." << endl;
 			Sleep(1000);
 			system("cls");
 			break;

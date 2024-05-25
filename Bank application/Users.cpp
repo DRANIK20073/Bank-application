@@ -20,6 +20,23 @@ void Users::registration() {
 	user.open("Users.txt", ios::app);
 	user << lastName << " " << name << " " << login << " " << password << endl;
 	user.close();
+
+	ifstream fin("Users.txt");
+	string line;
+
+	while (getline(fin, line)) {
+		stringstream ss(line);
+		string LN, N, checkLogin, P;
+		ss >> LN >> N >> checkLogin >> P;
+		if (login == checkLogin) {
+			cout << "ѕользователь с таким логином уже существует.";
+			Sleep(2000);
+			system("cls");
+			mainMenu();
+		}
+	}
+	cout << "¬ы успешно зарегистрировались.";
+	user.close();
 }
 
 bool Users::loginUser() {
