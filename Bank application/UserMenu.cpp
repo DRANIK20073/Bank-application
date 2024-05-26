@@ -46,9 +46,6 @@ void UserMenu()
 			break;
 		default:
 			system("cls");
-			cout << "Неверный выбор. Пожалуйста, выберите опцию от 1 до 4." << endl;
-			Sleep(3000);
-			system("cls");
 			break;
 		}
 	}

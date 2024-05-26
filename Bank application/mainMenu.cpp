@@ -31,6 +31,7 @@ void mainMenu()
 					fout << newUser.getName() << " ";
 					fout << newUser.getlogin() << " ";
 					fout << newUser.getPassword() << " ";
+					fout << newUser.getBalance() << " ";
 					fout.close();
 
 					login = true;
@@ -44,6 +45,7 @@ void mainMenu()
 				}
 				else {
 					system("cls");
+					mainMenu();
 				}
 			}
 			system("pause");
@@ -58,7 +60,6 @@ void mainMenu()
 			system("cls");
 			bank_logo();
 			cout << endl;
-			newUser.information();
 			newUser.registration();
 			Sleep(1000);
 			system("cls");
@@ -93,11 +94,6 @@ void mainMenu()
 			break;
 		}
 		default:
-			system("cls");
-			bank_logo();
-			cout << endl;
-			tab();cout << "Неверный выбор. Пожалуйста, выберите опцию от 1 до 3." << endl;
-			Sleep(1000);
 			system("cls");
 			break;
 		}

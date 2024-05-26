@@ -4,7 +4,8 @@ Users::Users()
 {
 }
 
-void Users::information() {
+//Регистрация
+void Users::registration() {
 	cout << "Фамилия: ";
 	cin >> lastName;
 	cout << "Имя: ";
@@ -13,38 +14,43 @@ void Users::information() {
 	cin >> login;
 	cout << "Пароль: ";
 	cin >> password;
-}
-
-void Users::registration() {
-	ofstream user;
-	user.open("Users.txt", ios::app);
-	user << lastName << " " << name << " " << login << " " << password << endl;
-	user.close();
+	system("cls");
 
 	ifstream fin("Users.txt");
 	string line;
-
 	while (getline(fin, line)) {
 		stringstream ss(line);
-		string LN, N, checkLogin, P;
-		ss >> LN >> N >> checkLogin >> P;
+		string LN, N, checkLogin;
+		ss >> LN >> N >> checkLogin;
 		if (login == checkLogin) {
 			cout << "Пользователь с таким логином уже существует.";
 			Sleep(2000);
 			system("cls");
 			mainMenu();
+			fin.close();
 		}
 	}
-	cout << "Вы успешно зарегистрировались.";
+	fin.close();
+
+	ofstream user;
+	user.open("Users.txt", ios::app);
+	balance = "0.0";
+	user << lastName << " " << name << " " << login << " " << password << " " << balance << endl;
 	user.close();
+
+	cout << "Вы успешно зарегистрировались.";
+	Sleep(1500);
+	system("cls");
+	mainMenu();
 }
 
+//Логин
 bool Users::loginUser() {
 	string loginInput;
 	string passwordInput;
-	tab();tab(); cout << "	 Логин: ";
+	tab();tab(); cout << "\t Логин: ";
 	cin >> loginInput;
-	tab();tab(); cout << "	 Пароль: ";
+	tab();tab(); cout << "\t Пароль: ";
 	cin >> passwordInput;
 
 	ifstream userFile("Users.txt");
@@ -58,9 +64,30 @@ bool Users::loginUser() {
 			words.push_back(word);
 		}
 
-		if (words.size() >= 4 && words[2] == loginInput && words[3] == passwordInput) {
+		if (words.size() >= 4 && words[1] == loginInput && words[2] == passwordInput) {
 			userFile.close();
-			loadUserInformation(loginInput, passwordInput);
+
+			ifstream fin("Users.txt");
+			string line;
+
+			while (getline(fin, line)) {
+				stringstream ss(line);
+				string currentLastName, currentName, currentLogin, currentPassword, currentBalance;
+
+				ss >> currentLastName >> currentName >> currentLogin >> currentPassword >> currentBalance;
+
+				if (currentLogin == loginInput && currentPassword == passwordInput) {
+					lastName = currentLastName;
+					name = currentName;
+					login = currentLogin;
+					password = currentPassword;
+					balance = currentBalance;
+					break;
+				}
+			}
+
+			fin.close();
+
 			return true;
 		}
 	}
@@ -72,26 +99,19 @@ bool Users::loginUser() {
 	return false;
 }
 
-void Users::loadUserInformation(string loginInput, string passwordInput) {
-	ifstream fin("Users.txt");
+string Users::getLastName()
+{
+	ifstream fin("CurrentUser.txt");
 	string line;
 
 	while (getline(fin, line)) {
 		stringstream ss(line);
-		string currentLastName, currentName, currentLogin, currentPassword;
-
-		ss >> currentLastName >> currentName >> currentLogin >> currentPassword;
-
-		if (currentLogin == loginInput && currentPassword == passwordInput) {
-			lastName = currentLastName;
-			name = currentName;
-			login = currentLogin;
-			password = currentPassword;
-			break;
-		}
+		ss >> lastName >> name >> login >> password >> balance;
 	}
 
 	fin.close();
+
+	return lastName;
 }
 
 string Users::getName()
@@ -101,27 +121,12 @@ string Users::getName()
 
 	while (getline(fin, line)) {
 		stringstream ss(line);
-		ss >> lastName >> name >> login >> password;
+		ss >> lastName >> name >> login >> password >> balance;
 	}
 
 	fin.close();
 
 	return name;
-}
-
-string Users::getLastName()
-{
-	ifstream fin("CurrentUser.txt");
-	string line;
-
-	while (getline(fin, line)) {
-		stringstream ss(line);
-		ss >> lastName >> name >> login >> password;
-	}
-
-	fin.close();
-
-	return lastName;
 }
 
 string Users::getlogin()
@@ -131,7 +136,7 @@ string Users::getlogin()
 
 	while (getline(fin, line)) {
 		stringstream ss(line);
-		ss >> lastName >> name >> login >> password;
+		ss >> lastName >> name >> login >> password >> balance;
 	}
 
 	fin.close();
@@ -146,12 +151,28 @@ string Users::getPassword()
 
 	while (getline(fin, line)) {
 		stringstream ss(line);
-		ss >> lastName >> name >> login >> password;
+		ss >> lastName >> name >> login >> password >> balance;
 	}
 
 	fin.close();
 
 	return password;
+}
+
+double Users::getBalance() {
+	ifstream fin("CurrentUser.txt");
+	string line;
+
+	while (getline(fin, line)) {
+		stringstream ss(line);
+		ss >> lastName >> name >> login >> password >> balance;
+	}
+
+	double Balance = stod(balance);
+
+	fin.close();
+
+	return Balance;
 }
 
 void Users::showInformation() {
@@ -171,6 +192,7 @@ void Users::showInformation() {
 	tab();tab();tab();cout << "   Пароль: " << password << endl;
 }
 
+//Для изменения данных пользователя UserCabinet
 void Users::changePassword()
 {	
 	center();cout << "------------------------------------------------------------" << endl;
@@ -238,7 +260,6 @@ void Users::changePassword()
 		break;
 	}
 }
-
 
 void Users::changeName()
 {

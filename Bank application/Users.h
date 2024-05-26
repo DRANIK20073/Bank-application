@@ -8,10 +8,9 @@ class Users
 	string name;
 	string login;
 	string password;
+	string balance;
 public:
 	Users();
-
-	void information();
 
 	void showInformation();
 
@@ -25,14 +24,14 @@ public:
 
 	void changeLastName();
 
-	void loadUserInformation(string loginInput, string passwordInput);
+	string getLastName();
 
 	string getName();
-
-	string getLastName();
 
 	string getlogin();
 
 	string getPassword();
+
+	double getBalance();
 };
 
