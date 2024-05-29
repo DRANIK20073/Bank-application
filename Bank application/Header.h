@@ -8,6 +8,7 @@
 #include <vector>
 #include <sstream>
 #include <cstdio>
+#include <random>
 using namespace std;
 
 void settings();

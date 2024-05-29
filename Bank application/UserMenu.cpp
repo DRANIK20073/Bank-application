@@ -23,7 +23,7 @@ void UserMenu()
 		case '1':
 			//Счет
 			system("cls");
-			userAccount();
+			Balance();
 			break;
 		case '2':
 			//Конвертер валют

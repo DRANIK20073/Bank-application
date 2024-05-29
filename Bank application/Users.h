@@ -4,11 +4,18 @@
 
 class Users
 {
+	//Пользователь
 	string lastName;
 	string name;
 	string login;
 	string password;
 	string balance;
+
+	//Карта 
+	string cardNumber;
+	string cardExpiration;
+	string cardCVV;
+	string cardPassword;
 public:
 	Users();
 
@@ -33,5 +40,19 @@ public:
 	string getPassword();
 
 	double getBalance();
+
+	void addBalance(double num);
+
+	void addCard();
+
+	bool displayCard();
+
+	void transferMoney();
+
+	void changeCardPassword();
+
+	void deleteCard();
+
+	void loadUserInformation(string loginInput, string passwordInput);
 };
 

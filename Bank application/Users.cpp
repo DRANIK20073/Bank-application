@@ -4,6 +4,20 @@ Users::Users()
 {
 }
 
+//Генерация рандомных чисел
+string generateRandomString(int length) {
+	const char characters[] = "0123456789";
+	random_device rd;
+	mt19937 generator(rd());
+	uniform_int_distribution<> distribution(0, sizeof(characters) - 2);
+
+	string randomString;
+	for (int i = 0; i < length; ++i) {
+		randomString += characters[distribution(generator)];
+	}
+	return randomString;
+}
+
 //Регистрация
 void Users::registration() {
 	cout << "Фамилия: ";
@@ -34,8 +48,13 @@ void Users::registration() {
 
 	ofstream user;
 	user.open("Users.txt", ios::app);
+	cardNumber = "";
+	cardExpiration = "";
+	cardCVV = "";
+	cardPassword = "";
 	balance = "0.0";
-	user << lastName << " " << name << " " << login << " " << password << " " << balance << endl;
+	user << lastName << " " << name << " " << login << " " << password << " " << balance << " " 
+	<< cardNumber << " " << cardExpiration << " " << cardCVV << cardPassword << endl;
 	user.close();
 
 	cout << "Вы успешно зарегистрировались.";
@@ -64,7 +83,7 @@ bool Users::loginUser() {
 			words.push_back(word);
 		}
 
-		if (words.size() >= 4 && words[1] == loginInput && words[2] == passwordInput) {
+		if (words.size() >= 5 && words[2] == loginInput && words[3] == passwordInput) {
 			userFile.close();
 
 			ifstream fin("Users.txt");
@@ -72,7 +91,8 @@ bool Users::loginUser() {
 
 			while (getline(fin, line)) {
 				stringstream ss(line);
-				string currentLastName, currentName, currentLogin, currentPassword, currentBalance;
+				string currentLastName, currentName, currentLogin, currentPassword, currentBalance,
+					currentCardNumber, currentCardExpiration, currentCardCVV, currentCardPassword;
 
 				ss >> currentLastName >> currentName >> currentLogin >> currentPassword >> currentBalance;
 
@@ -82,6 +102,10 @@ bool Users::loginUser() {
 					login = currentLogin;
 					password = currentPassword;
 					balance = currentBalance;
+					cardNumber = currentCardNumber;
+					cardExpiration = currentCardExpiration;
+					cardCVV = currentCardCVV;
+					cardPassword = currentCardPassword;
 					break;
 				}
 			}
@@ -97,6 +121,23 @@ bool Users::loginUser() {
 	cout << "Неправильный логин или пароль, повторите попытку." << endl;
 	Sleep(2000);
 	return false;
+}
+
+void Users::showInformation() {
+	ifstream fin("CurrentUser.txt");
+	string line;
+
+	while (getline(fin, line)) {
+		stringstream ss(line);
+		ss >> lastName >> name >> login >> password;
+	}
+
+	fin.close();
+
+	tab();tab();tab();cout << "   Фамилия: " << lastName << endl;
+	tab();tab();tab();cout << "   Имя: " << name << endl;
+	tab();tab();tab();cout << "   Логин: " << login << endl;
+	tab();tab();tab();cout << "   Пароль: " << password << endl;
 }
 
 string Users::getLastName()
@@ -159,6 +200,7 @@ string Users::getPassword()
 	return password;
 }
 
+//Показать баланс
 double Users::getBalance() {
 	ifstream fin("CurrentUser.txt");
 	string line;
@@ -175,21 +217,248 @@ double Users::getBalance() {
 	return Balance;
 }
 
-void Users::showInformation() {
-	ifstream fin("CurrentUser.txt");
+//Пополнить баланс
+void Users::addBalance(double num)
+{
+	double Balance = stod(balance);
+	Balance += num;
+	balance = to_string(Balance);
+
+	// Обновление Users.txt
+	ifstream fin("Users.txt");
+	ofstream fout("temp.txt");
 	string line;
 
 	while (getline(fin, line)) {
 		stringstream ss(line);
-		ss >> lastName >> name >> login >> password;
+		string currentLastName, currentName, currentLogin, currentPassword;
+		double currentBalance;
+
+		ss >> currentLastName >> currentName >> currentLogin >> currentPassword >> currentBalance;
+
+		if (currentLogin == login && currentPassword == password) {
+			fout << currentLastName << " " << currentName << " " << currentLogin << " " << currentPassword << " " << balance << endl;
+		}
+		else {
+			fout << line << endl;
+		}
 	}
 
 	fin.close();
+	fout.close();
 
-	tab();tab();tab();cout << "   Фамилия: " << lastName << endl;
-	tab();tab();tab();cout << "   Имя: " << name << endl;
-	tab();tab();tab();cout << "   Логин: " << login << endl;
-	tab();tab();tab();cout << "   Пароль: " << password << endl;
+	remove("Users.txt");
+	rename("temp.txt", "Users.txt");
+
+	// Обновление CurrentUser.txt
+	ofstream currentUserFile("CurrentUser.txt");
+	currentUserFile << lastName << " " << name << " " << login << " " << password << " " << balance;
+	currentUserFile.close();
+
+	cout << "Баланс успешно обновлен!" << endl;
+	Sleep(800);
+}
+
+//Создать карту
+void Users::addCard()
+{
+	//Номер карты
+	cardNumber = generateRandomString(16);
+
+	//Cрок годности
+	int month, year;
+	srand(time(NULL));
+	year = rand() % (30 - 24 + 1) + 24;
+	month = rand() % (12 - 1 + 1) + 1;
+	string Year = to_string(rand() % (30 - 24 + 1) + 24);
+	string Month = to_string(rand() % (12 - 1 + 1) + 1);
+	cardExpiration = Month + "/" + Year;
+
+	//CVV
+	cardCVV = generateRandomString(3);
+
+	//Пароль
+	cout << "Введите пароль для карты(4 цифры): ";
+	cin >> cardPassword;
+
+	ifstream fin("Users.txt");
+	ofstream fout("temp.txt");
+	string line;
+
+	while (getline(fin, line)) {
+		stringstream ss(line);
+		string currentLastName, currentName, currentLogin, currentPassword, currentCardNumber, currentCardExpiry, currentCardCVV, currentCardPassword;
+		double currentBalance;
+
+		ss >> currentLastName >> currentName >> currentLogin >> currentPassword >> currentBalance >> currentCardNumber >> currentCardExpiry >> currentCardCVV >> currentCardPassword;
+
+		if (currentLogin == login && currentPassword == password) {
+			fout << currentLastName << " " << currentName << " " << currentLogin << " " << currentPassword << " " << currentBalance << " " << cardNumber << " " << cardExpiration << " " << cardCVV << " " << cardPassword << endl;
+		}
+		else {
+			fout << line << endl;
+		}
+	}
+
+	fin.close();
+	fout.close();
+
+	remove("Users.txt");
+	rename("temp.txt", "Users.txt");
+
+	ofstream currentUserFile("CurrentUser.txt");
+	currentUserFile << lastName << " " << name << " " << login << " " << password << " " << balance << " " << cardNumber << " " << cardExpiration << " " << cardCVV << " " << cardPassword;
+	currentUserFile.close();
+
+	cout << "Карта успешно добавлена!" << endl;
+}
+
+//Вид карты
+bool Users::displayCard()
+{
+	string CardNumber = cardNumber;
+	string CardExpiration = cardExpiration;
+	string CardCVV = cardCVV;
+
+	if (CardNumber.empty()) {
+		cout << "У вас нет активной карты." << endl;
+		Sleep(1000);
+		return false;
+	}
+	else {
+		cout << "**********************************" << endl;
+		cout << "* Триорбанк                      *" << endl;
+		cout << "*                                *" << endl;
+		cout << "*                                *" << endl;
+		cout << "* " << CardNumber << "           *" << endl;
+		cout << "*                                *" << endl;
+		cout << "*" << CardExpiration << "   " << CardCVV << "*" << endl;
+		cout << "*                                *" << endl;
+		cout << "**********************************" << endl;
+	}
+}
+
+//Перевести деньги на аккаунт другого пользователя
+void Users::transferMoney()
+{
+}
+
+//Изменить пароль карты
+void Users::changeCardPassword() {
+	if (cardNumber.empty()) {
+		cout << "У вас нет активной карты." << endl;
+		return;
+	}
+
+	string newCardPassword;
+	cout << "Введите новый пароль для карты: ";
+	cin >> newCardPassword;
+	cardPassword = newCardPassword;
+
+	// Обновление Users.txt
+	ifstream fin("Users.txt");
+	ofstream fout("temp.txt");
+	string line;
+
+	while (getline(fin, line)) {
+		stringstream ss(line);
+		string currentLastName, currentName, currentLogin, currentPassword, currentCardNumber, currentCardExpiry, currentCardCVV, currentCardPassword;
+		double currentBalance;
+
+		ss >> currentLastName >> currentName >> currentLogin >> currentPassword >> currentBalance >> currentCardNumber >> currentCardExpiry >> currentCardCVV >> currentCardPassword;
+
+		if (currentLogin == login && currentPassword == password) {
+			fout << currentLastName << " " << currentName << " " << currentLogin << " " << currentPassword << " " << currentBalance << " " << currentCardNumber << " " << currentCardExpiry << " " << currentCardCVV << " " << newCardPassword << endl;
+		}
+		else {
+			fout << line << endl;
+		}
+	}
+
+	fin.close();
+	fout.close();
+
+	remove("Users.txt");
+	rename("temp.txt", "Users.txt");
+
+	ofstream currentUserFile("CurrentUser.txt");
+	currentUserFile << lastName << " " << name << " " << login << " " << password << " " << balance << " " << cardNumber << " " << cardExpiration << " " << cardCVV << " " << newCardPassword;
+	currentUserFile.close();
+
+	cout << "Пароль карты успешно изменен!" << endl;
+}
+
+//Удалить карту
+void Users::deleteCard() {
+
+	cardNumber.clear();
+	cardExpiration.clear();
+	cardCVV.clear();
+	cardPassword.clear();
+
+	ifstream fin("Users.txt");
+	ofstream fout("temp.txt");
+	string line;
+
+	while (getline(fin, line)) {
+		stringstream ss(line);
+		string currentLastName, currentName, currentLogin, currentPassword, currentCardNumber, currentCardExpiry, currentCardCVV, currentCardPassword;
+		double currentBalance;
+
+		ss >> currentLastName >> currentName >> currentLogin >> currentPassword >> currentBalance >> currentCardNumber >> currentCardExpiry >> currentCardCVV >> currentCardPassword;
+
+		if (currentLogin == login && currentPassword == password) {
+			fout << currentLastName << " " << currentName << " " << currentLogin << " " << currentPassword << " " << currentBalance << " " << "" << " " << "" << " " << "" << " " << "" << endl;
+		}
+		else {
+			fout << line << endl;
+		}
+	}
+
+	fin.close();
+	fout.close();
+
+	remove("Users.txt");
+	rename("temp.txt", "Users.txt");
+
+	ofstream currentUserFile("CurrentUser.txt");
+	currentUserFile << lastName << " " << name << " " << login << " " << password << " " << balance << " " << "" << " " << "" << " " << "" << " " << "" << endl;
+	currentUserFile.close();
+
+	cout << "Карта успешно удалена!" << endl;
+}
+
+void Users::loadUserInformation(string loginInput, string passwordInput) {
+	ifstream userFile("Users.txt");
+	string line;
+
+	while (getline(userFile, line)) {
+		stringstream ss(line);
+		string currentLastName, currentName, currentLogin, currentPassword, currentCardNumber, currentCardExpiry, currentCardCVV, currentCardPassword;
+		double currentBalance;
+
+		ss >> currentLastName >> currentName >> currentLogin >> currentPassword >> currentBalance >> currentCardNumber >> currentCardExpiry >> currentCardCVV >> currentCardPassword;
+
+		if (currentLogin == loginInput && currentPassword == passwordInput) {
+			lastName = currentLastName;
+			name = currentName;
+			login = currentLogin;
+			password = currentPassword;
+			balance = currentBalance;
+			cardNumber = currentCardNumber;
+			cardExpiration = currentCardExpiry;
+			cardCVV = currentCardCVV;
+			cardPassword = currentCardPassword;
+
+			ofstream currentUserFile("CurrentUser.txt");
+			currentUserFile << lastName << " " << name << " " << login << " " << password << " " << balance << " " << cardNumber << " " << cardExpiry << " " << cardCVV << " " << cardPassword;
+			currentUserFile.close();
+
+			break;
+		}
+	}
+
+	userFile.close();
 }
 
 //Для изменения данных пользователя UserCabinet
@@ -261,6 +530,7 @@ void Users::changePassword()
 	}
 }
 
+//Для изменения данных пользователя UserCabinet
 void Users::changeName()
 {
 	center();cout << "------------------------------------------------------------" << endl;
@@ -330,6 +600,7 @@ void Users::changeName()
 	
 }
 
+//Для изменения данных пользователя UserCabinet
 void Users::changeLastName()
 {
 	center();cout << "------------------------------------------------------------" << endl;
