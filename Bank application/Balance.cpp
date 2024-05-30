@@ -40,7 +40,6 @@ void Balance()
 				Balance();
 			}
 			else {
-				currentUser.displayCard();
 				cout << "1.Изменить пароль карты." << endl;
 				cout << "2.Удалить карту" << endl;
 				cout << "Esc.Вернуться в меню" << endl;
@@ -49,6 +48,8 @@ void Balance()
 				case'1':
 					system("cls");
 					currentUser.changeCardPassword();
+					system("cls");
+					Balance();
 					break;
 				case'2':
 					system("cls");
@@ -59,9 +60,8 @@ void Balance()
 					Balance();
 					break;
 				}
-				system("cls");
-				break;
 			}
+			break;
 		}
 		case '4':
 			system("cls");
@@ -70,6 +70,10 @@ void Balance()
 			system("cls");
 			UserMenu();
 			break;
+		default:
+			Balance();
+			break;
 		}
 	}
+
 }

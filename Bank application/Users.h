@@ -39,6 +39,14 @@ public:
 
 	string getPassword();
 
+	string getCardNum();
+
+	string getCardExpiration();
+
+	string getCardCVV();
+
+	string getCardPassword();
+
 	double getBalance();
 
 	void addBalance(double num);
@@ -53,6 +61,7 @@ public:
 
 	void deleteCard();
 
-	void loadUserInformation(string loginInput, string passwordInput);
+	void loadUserInformation();
+
 };
 

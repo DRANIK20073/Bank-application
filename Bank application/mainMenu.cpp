@@ -32,6 +32,10 @@ void mainMenu()
 					fout << newUser.getlogin() << " ";
 					fout << newUser.getPassword() << " ";
 					fout << newUser.getBalance() << " ";
+					fout << newUser.getCardNum() << " ";
+					fout << newUser.getCardExpiration() << " ";
+					fout << newUser.getCardCVV() << " ";
+					fout << newUser.getCardPassword() << " ";
 					fout.close();
 
 					login = true;
