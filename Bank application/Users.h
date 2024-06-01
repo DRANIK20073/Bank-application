@@ -9,7 +9,7 @@ class Users
 	string name;
 	string login;
 	string password;
-	string balance;
+	double balance;
 
 	//Карта 
 	string cardNumber;
@@ -49,7 +49,7 @@ public:
 
 	double getBalance();
 
-	void addBalance(double num);
+	void addBalance();
 
 	void addCard();
 

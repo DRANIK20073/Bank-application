@@ -52,7 +52,7 @@ void Users::registration() {
 	cardExpiration = "";
 	cardCVV = "";
 	cardPassword = "";
-	balance = "0.0";
+	balance = 0;
 	user << lastName << " " << name << " " << login << " " << password << " " << balance << " " 
 	<< cardNumber << " " << cardExpiration << " " << cardCVV << cardPassword << endl;
 	user.close();
@@ -94,14 +94,13 @@ bool Users::loginUser() {
 				string currentLastName, currentName, currentLogin, currentPassword, currentBalance,
 					currentCardNumber, currentCardExpiration, currentCardCVV, currentCardPassword;
 
-				ss >> currentLastName >> currentName >> currentLogin >> currentPassword >> currentBalance >> currentCardNumber >> currentCardExpiration >> currentCardCVV >> currentCardPassword;
+				ss >> currentLastName >> currentName >> currentLogin >> currentPassword >> balance >> currentCardNumber >> currentCardExpiration >> currentCardCVV >> currentCardPassword;
 
 				if (currentLogin == loginInput && currentPassword == passwordInput) {
 					lastName = currentLastName;
 					name = currentName;
 					login = currentLogin;
 					password = currentPassword;
-					balance = currentBalance;
 					cardNumber = currentCardNumber;
 					cardExpiration = currentCardExpiration;
 					cardCVV = currentCardCVV;
@@ -267,43 +266,41 @@ string Users::getCardPassword()
 double Users::getBalance() {
 	ifstream fin("CurrentUser.txt");
 	string line;
-
 	while (getline(fin, line)) {
 		stringstream ss(line);
 		ss >> lastName >> name >> login >> password >> balance;
 	}
-
-	double Balance = stod(balance);
-
 	fin.close();
 
-	return Balance;
+	return balance;
 }
 
 //Пополнить баланс
-void Users::addBalance(double num)
+void Users::addBalance()
 {
-	double Balance = stod(balance);
-	Balance += num;
-	balance = to_string(Balance);
 
 	// Обновление Users.txt
 	ifstream fin("Users.txt");
 	ofstream fout("temp.txt");
 	string line;
 
+	double num;
+	cout << "Введите сумму: ";
+	cin >> num;
+	balance += num;
+
 	while (getline(fin, line)) {
 		stringstream ss(line);
-		string currentLastName, currentName, currentLogin, currentPassword, currentcardNumber, currentcardExpiration, currentCardCVV, currentCardPassword;
+		string currentLastName, currentName, currentLogin, currentPassword, currentCardNumber, currentCardExpiration, currentCardCVV, currentCardPassword;
 		double currentBalance;
 
-		ss >> currentLastName >> currentName >> currentLogin >> currentPassword >> currentBalance >> currentcardNumber >> currentcardExpiration >> currentCardCVV >> currentCardPassword;
+		ss >> currentLastName >> currentName >> currentLogin >> currentPassword >> currentBalance >> currentCardNumber >> currentCardExpiration >> currentCardCVV >> currentCardPassword;
 
 		if (currentLogin == login && currentPassword == password) {
-			fout << currentLastName << " " << currentName << " " << currentLogin << " " << currentPassword << " " << balance << " " << currentcardNumber << " " << currentcardExpiration << " " << currentCardCVV << " " << currentCardPassword << endl;
+			fout << currentLastName << " " << currentName << " " << currentLogin << " " << currentPassword << " " << balance << " " << currentCardNumber << " " << currentCardExpiration << " " << currentCardCVV << " " << currentCardPassword << endl;
 		}
 		else {
-			fout << line << endl;
+			fout << currentLastName << " " << currentName << " " << currentLogin << " " << currentPassword << " " << currentBalance << " " << currentCardNumber << " " << currentCardExpiration << " " << currentCardCVV << " " << currentCardPassword << endl;
 		}
 	}
 
@@ -428,16 +425,16 @@ void Users::changeCardPassword() {
 
 	while (getline(fin, line)) {
 		stringstream ss(line);
-		string currentLastName, currentName, currentLogin, currentPassword, currentCardNumber, currentCardExpiry, currentCardCVV, currentCardPassword;
+		string currentLastName, currentName, currentLogin, currentPassword, currentCardNumber, currentCardExpiration, currentCardCVV, currentCardPassword;
 		double currentBalance;
 
-		ss >> currentLastName >> currentName >> currentLogin >> currentPassword >> currentBalance >> currentCardNumber >> currentCardExpiry >> currentCardCVV >> currentCardPassword;
+		ss >> currentLastName >> currentName >> currentLogin >> currentPassword >> currentBalance >> currentCardNumber >> currentCardExpiration >> currentCardCVV >> currentCardPassword;
 
 		if (currentLogin == login && currentPassword == password) {
-			fout << currentLastName << " " << currentName << " " << currentLogin << " " << currentPassword << " " << currentBalance << " " << currentCardNumber << " " << currentCardExpiry << " " << currentCardCVV << " " << cardPassword << endl;
+			fout << currentLastName << " " << currentName << " " << currentLogin << " " << currentPassword << " " << currentBalance << " " << currentCardNumber << " " << currentCardExpiration << " " << currentCardCVV << " " << newCardPassword << endl;
 		}
 		else {
-			fout << line << endl;
+			fout << currentLastName << " " << currentName << " " << currentLogin << " " << currentPassword << " " << currentBalance << " " << currentCardNumber << " " << currentCardExpiration << " " << currentCardCVV << " " << currentCardPassword << endl;
 		}
 	}
 
@@ -493,6 +490,7 @@ void Users::deleteCard() {
 	currentUserFile.close();
 
 	cout << "Карта успешно удалена!" << endl;
+	Sleep(800);
 }
 
 void Users::loadUserInformation() {

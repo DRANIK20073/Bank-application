@@ -20,10 +20,7 @@ void Balance()
 		switch (choice) {
 		case '1':
 			system("cls");
-			double num;
-			cout << "¬ведите сумму: ";
-			cin >> num;
-			currentUser.addBalance(num);
+			currentUser.addBalance();
 			system("cls");
 			Balance();
 			break;
@@ -54,6 +51,8 @@ void Balance()
 				case'2':
 					system("cls");
 					currentUser.deleteCard();
+					system("cls");
+					Balance();
 					break;
 				case 27:
 					system("cls");
