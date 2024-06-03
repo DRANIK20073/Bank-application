@@ -133,6 +133,7 @@
     <ClCompile Include="CurrencyExchager.cpp" />
     <ClCompile Include="Header.cpp" />
     <ClCompile Include="mainMenu.cpp" />
+    <ClCompile Include="Support.cpp" />
     <ClCompile Include="UserMenu.cpp" />
     <ClCompile Include="Users.cpp" />
     <ClCompile Include="userСabinet.cpp" />
@@ -143,6 +144,7 @@
     <ClInclude Include="Header.h" />
     <ClInclude Include="CurrencyExchager.h" />
     <ClInclude Include="mainMenu.h" />
+    <ClInclude Include="Support.h" />
     <ClInclude Include="UserMenu.h" />
     <ClInclude Include="Users.h" />
     <ClInclude Include="userСabinet.h" />

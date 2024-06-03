@@ -11,6 +11,7 @@ void UserMenu()
 	tab();tab(); cout << "	2.Конвертер валют" << endl;
 	tab();tab(); cout << "	3.Кредит" << endl;
 	tab();tab(); cout << "	4.Личный кабинет" << endl;
+	tab();tab(); cout << "	5.Поддержка" << endl;
 	tab();tab(); cout << "	Esc.Вернуться в меню";
 
 	int choice;
@@ -40,12 +41,18 @@ void UserMenu()
 			system("cls");
 			userCabinet();
 			break;
+		case '5':
+			//Обратиться в поддержку
+			system("cls");
+			Support();
+			break;
 		case 27:
 			system("cls");
 			mainMenu();
 			break;
 		default:
 			system("cls");
+			UserMenu();
 			break;
 		}
 	}

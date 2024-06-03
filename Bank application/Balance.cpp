@@ -50,9 +50,22 @@ void Balance()
 					break;
 				case'2':
 					system("cls");
-					currentUser.deleteCard();
-					system("cls");
-					Balance();
+					int choice;
+					cout << "Вы уверены?" << endl;
+					cout << "1.Да " << "2.Нет";
+					choice = _getch();
+					switch (choice) {
+					case '1':
+						system("cls");
+						currentUser.deleteCard();
+						system("cls");
+						Balance();
+						break;
+					case '2':
+						system("cls");
+						Balance();
+						break;
+					}
 					break;
 				case 27:
 					system("cls");
@@ -64,6 +77,9 @@ void Balance()
 		}
 		case '4':
 			system("cls");
+			currentUser.transferMoney();
+			system("cls");
+			Balance();
 			break;
 		case 27:
 			system("cls");

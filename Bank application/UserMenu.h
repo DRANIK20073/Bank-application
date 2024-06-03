@@ -6,5 +6,6 @@
 #include "Credit.h"
 #include "Balance.h"
 #include "user—abinet.h"
+#include "Support.h"
 
 void UserMenu();
