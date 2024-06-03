@@ -75,15 +75,13 @@ void mainMenu()
 			bank_logo();
 			cout << endl;
 			tab();tab();cout << "Вы действительно хотите выйти?" << endl;
-			tab();tab();cout << "Y.Да " << "N.Нет" << endl;
+			tab();tab();cout << "1.Да " << "2.Нет" << endl;
 			int exitChoice;
 			exitChoice = _getch();
 			switch (exitChoice) {
-			case 'Y':
-			case 'y':
+			case '1':
 				exit(0);
-			case 'N':
-			case 'n':
+			case '2':
 				system("cls");
 				break;
 			default:
@@ -91,7 +89,7 @@ void mainMenu()
 				bank_logo();
 				cout << endl;
 				tab();cout << "Неверный выбор. Пожалуйста, выберите опцию от 1 до 2." << endl;
-				Sleep(1000);
+				Sleep(500);
 				break;
 			}
 			system("cls");

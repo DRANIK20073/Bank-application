@@ -405,10 +405,107 @@ bool Users::displayCard()
 	}
 }
 
-//Перевести деньги на аккаунт другого пользователя
-void Users::transferMoney()
-{
+//Перевести деньги на карту другого пользователя
+void Users::transferMoney() {
+	cout << "Введите номер карты другого пользователя: ";
+	string anotherUserCard;
+	cin >> anotherUserCard;
+
+	bool userFound = false;
+	double transferAmount;
+
+	// Чтение текущего пользователя
+	ifstream currentFin("CurrentUser.txt");
+	if (!currentFin.is_open()) {
+		cerr << "Ошибка при открытии файла CurrentUser.txt." << endl;
+		return;
+	}
+
+	string line;
+	string currentUserLastName, currentUserName, currentUserLogin, currentUserPassword, currentUserCardNumber, currentUserCardExpiration, currentUserCardCVV, currentUserCardPassword;
+	double currentUserBalance;
+
+	while (getline(currentFin, line)) {
+		stringstream ss(line);
+		ss >> currentUserLastName >> currentUserName >> currentUserLogin >> currentUserPassword >> currentUserBalance >> currentUserCardNumber >> currentUserCardExpiration >> currentUserCardCVV >> currentUserCardPassword;
+	}
+	currentFin.close();
+
+	// Проверка введенной суммы
+	cout << "Введите сумму: ";
+	cin >> transferAmount;
+	if (transferAmount > currentUserBalance) {
+		cout << "Недостаточно средств на счете." << endl;
+		return;
+	}
+
+	// Обновление Users.txt
+	ifstream fin("Users.txt");
+	if (!fin.is_open()) {
+		cerr << "Ошибка при открытии файла Users.txt." << endl;
+		return;
+	}
+
+	ofstream fout("temp.txt");
+	if (!fout.is_open()) {
+		cerr << "Ошибка при открытии файла temp.txt." << endl;
+		fin.close();
+		return;
+	}
+
+	while (getline(fin, line)) {
+		stringstream ss(line);
+		string lastName, name, login, password, cardNumber, cardExpiration, cardCVV, cardPassword;
+		double balance;
+
+		ss >> lastName >> name >> login >> password >> balance >> cardNumber >> cardExpiration >> cardCVV >> cardPassword;
+
+		if (cardNumber == anotherUserCard) {
+			userFound = true;
+			balance += transferAmount;
+			fout << lastName << " " << name << " " << login << " " << password << " " << balance << " " << cardNumber << " " << cardExpiration << " " << cardCVV << " " << cardPassword << endl;
+		}
+		else if (login == currentUserLogin) {
+			currentUserBalance -= transferAmount;
+			fout << lastName << " " << name << " " << login << " " << password << " " << currentUserBalance << " " << cardNumber << " " << cardExpiration << " " << cardCVV << " " << cardPassword << endl;
+		}
+		else {
+			fout << lastName << " " << name << " " << login << " " << password << " " << balance << " " << cardNumber << " " << cardExpiration << " " << cardCVV << " " << cardPassword << endl;
+		}
+	}
+
+	fin.close();
+	fout.close();
+
+	if (!userFound) {
+		cerr << "Пользователь с введенным номером карты не найден." << endl;
+		remove("temp.txt");
+		return;
+	}
+
+	if (remove("Users.txt") != 0) {
+		cerr << "Ошибка при удалении файла Users.txt." << endl;
+		return;
+	}
+	if (rename("temp.txt", "Users.txt") != 0) {
+		cerr << "Ошибка при переименовании файла temp.txt в Users.txt." << endl;
+		return;
+	}
+
+	// Обновление CurrentUser.txt
+	ofstream currentUserFile("CurrentUser.txt");
+	if (!currentUserFile.is_open()) {
+		cerr << "Ошибка при открытии файла CurrentUser.txt." << endl;
+		return;
+	}
+
+	currentUserFile << currentUserLastName << " " << currentUserName << " " << currentUserLogin << " " << currentUserPassword << " " << currentUserBalance << " " << currentUserCardNumber << " " << currentUserCardExpiration << " " << currentUserCardCVV << " " << currentUserCardPassword;
+	currentUserFile.close();
+
+	cout << "Деньги успешно переведены!" << endl;
+	Sleep(500);
 }
+
 
 //Изменить пароль карты
 void Users::changeCardPassword() {
@@ -454,7 +551,6 @@ void Users::changeCardPassword() {
 
 //Удалить карту
 void Users::deleteCard() {
-
 	cardNumber.clear();
 	cardExpiration.clear();
 	cardCVV.clear();
