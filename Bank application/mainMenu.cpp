@@ -6,6 +6,7 @@ void mainMenu()
 	bool login = false;
 	bool work = true;
 	Users newUser;
+	admins admin;
 
 	while (work) {
 		bank_logo();
@@ -57,6 +58,33 @@ void mainMenu()
 			break;
 		case '2':
 			//Логин как администратор
+			while (login == false) {
+				system("cls");
+				bank_logo();
+				cout << endl;
+				if (admin.adminLogin() == true) {
+					ofstream fout("CurrentAdmin.txt");
+					fout << admin.getLastName() << " ";
+					fout << admin.getName() << " ";
+					fout << admin.getlogin() << " ";
+					fout << admin.getPassword() << " ";
+					fout.close();
+
+					login = true;
+					system("cls");
+					bank_logo();
+					cout << endl;
+					tab();tab(); cout << "     Добро пожаловать!" << endl;
+					Sleep(1000);
+					system("cls");
+					UserMenu();
+				}
+				else {
+					system("cls");
+					mainMenu();
+				}
+			}
+			system("pause");
 			system("cls");
 			break;
 		case '3': {

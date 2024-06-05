@@ -127,6 +127,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="adminMenu.cpp" />
+    <ClCompile Include="Admins.cpp" />
     <ClCompile Include="Balance.cpp" />
     <ClCompile Include="Bank application.cpp" />
     <ClCompile Include="Credit.cpp" />
@@ -139,6 +141,8 @@
     <ClCompile Include="userСabinet.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="adminMenu.h" />
+    <ClInclude Include="Admins.h" />
     <ClInclude Include="Balance.h" />
     <ClInclude Include="Credit.h" />
     <ClInclude Include="Header.h" />

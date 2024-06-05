@@ -9,29 +9,32 @@ void case1() {
     tab();cout << "       Введите сумму кредита в белорусских рублях: ";
     cin >> sum;
     tab();cout << "------------------------------------------------------------" << endl;
-    tab();cout << "       Выберите вариант годовой ставки.";
+    tab();cout << "       В зависимости от длительности кредита процентаня ставка будет равна" << endl;
     ifstream credits("Credit.txt");
-    double rate1, rate2;
-    credits >> rate1 >> rate2;
-    cout << " 1) " << rate1 << "%, 2) " << rate2 << "%." << endl;
-    char annual_interest_rate_choice = _getch();
-    switch (annual_interest_rate_choice) {
-    case '1':
-        annual_interest_rate = rate1;
-        tab();cout << "       Вы выбрали " << rate1 << "%" << endl;
-        break;
-    case '2':
-        annual_interest_rate = rate2;
-        tab();cout << "       Вы выбрали " << rate2 << "%" << endl;
-        break;
-    default:
-        tab();cout << "       Неверный выбор. Автоматически выбран вариант 1." << endl;
-        annual_interest_rate = rate1;
-        break;
-    }
+    double rate1, rate2, rate3;
+    credits >> rate1 >> rate2 >> rate3;
+    cout << "При 1 - 2 г." << rate1 << "%; При 3 - 5 л." << rate2 << "%; При 6 - 9 л." << rate3 << "%" << endl;
     tab();cout << "------------------------------------------------------------" << endl;
-    tab();cout << "       Введите срок кредита в годах: ";
-    cin >> credit_years;
+    bool work = true;
+    while (work) {
+        tab();cout << "       Введите срок кредита в годах: ";
+        cin >> credit_years;
+        if (credit_years == 1 || credit_years == 2) {
+            annual_interest_rate = rate1;
+            work = false;
+        }
+        else if (credit_years == 3 || credit_years == 4 || credit_years == 5) {
+            annual_interest_rate = rate2;
+            work = false;
+        }
+        else if (credit_years == 6 || credit_years == 7 || credit_years == 8 || credit_years == 9) {
+            annual_interest_rate = rate3;
+            work = false;
+        }
+        else {
+            cout << "\t\tКредит возможно взять максимум на 9 лет." << endl;
+        }
+    }
     int credit_months = credit_years * 12;
     tab();cout << "-------------------------[Результат]------------------------" << endl;
     double month_interest_rate = annual_interest_rate / 1200;
