@@ -12,4 +12,12 @@ public:
 	admins();
 
 	bool adminLogin();
+
+	string getLastName();
+
+	string getName();
+
+	string getLogin();
+
+	string getPassword();
 };

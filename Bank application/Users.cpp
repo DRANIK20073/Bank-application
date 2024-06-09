@@ -185,7 +185,7 @@ string Users::getlogin()
 	return login;
 }
 
-//Данные карты
+
 string Users::getPassword()
 {
 	ifstream fin("CurrentUser.txt");
@@ -201,6 +201,7 @@ string Users::getPassword()
 	return password;
 }
 
+//Данные карты
 string Users::getCardNum()
 {
 	ifstream fin("CurrentUser.txt");

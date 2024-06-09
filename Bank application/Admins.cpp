@@ -6,55 +6,95 @@ admins::admins()
 
 bool admins::adminLogin()
 {
-	string loginInput;
-	string passwordInput;
-	tab();tab(); cout << "\t Логин: ";
-	cin >> loginInput;
-	tab();tab(); cout << "\t Пароль: ";
-	cin >> passwordInput;
+    string loginInput;
+    string passwordInput;
+    tab(); tab(); cout << "\t Логин: ";
+    cin >> loginInput;
+    tab(); tab(); cout << "\t Пароль: ";
+    cin >> passwordInput;
 
-	ifstream userFile("Users.txt");
+    ifstream userFile("Admins.txt");
 
-	string line;
-	while (getline(userFile, line)) {
-		stringstream ss(line);
-		vector<string> words;
-		string word;
-		while (ss >> word) {
-			words.push_back(word);
-		}
+    string line;
+    while (getline(userFile, line)) {
+        stringstream ss(line);
+        string currentLastName, currentName, currentLogin, currentPassword;
 
-		if (words.size() >= 5 && words[2] == loginInput && words[3] == passwordInput) {
-			userFile.close();
+        ss >> currentLastName >> currentName >> currentLogin >> currentPassword;
 
-			ifstream fin("Users.txt");
-			string line;
+        if (currentLogin == loginInput && currentPassword == passwordInput) {
+            lastName = currentLastName;
+            name = currentName;
+            login = currentLogin;
+            password = currentPassword;
+            userFile.close();
+            return true;
+        }
+    }
 
-			while (getline(fin, line)) {
-				stringstream ss(line);
-				string currentLastName, currentName, currentLogin, currentPassword;
+    userFile.close();
+    system("cls");
+    cout << "Неправильный логин или пароль, повторите попытку." << endl;
+    Sleep(800);
+    return false;
+}
 
+string admins::getLastName()
+{
+    ifstream fin("CurrentUser.txt");
+    string line;
 
-				ss >> currentLastName >> currentName >> currentLogin >> currentPassword;
+    while (getline(fin, line)) {
+        stringstream ss(line);
+        ss >> lastName >> name >> login >> password;
+    }
 
-				if (currentLogin == loginInput && currentPassword == passwordInput) {
-					lastName = currentLastName;
-					name = currentName;
-					login = currentLogin;
-					password = currentPassword;
-					break;
-				}
-			}
+    fin.close();
 
-			fin.close();
+    return lastName;
+}
 
-			return true;
-		}
-	}
+string admins::getName()
+{
+    ifstream fin("CurrentUser.txt");
+    string line;
 
-	userFile.close();
-	system("cls");
-	cout << "Неправильный логин или пароль, повторите попытку." << endl;
-	Sleep(2000);
-	return false;
+    while (getline(fin, line)) {
+        stringstream ss(line);
+        ss >> lastName >> name >> login >> password;
+    }
+
+    fin.close();
+
+    return name;
+}
+
+string admins::getLogin()
+{
+    ifstream fin("CurrentUser.txt");
+    string line;
+
+    while (getline(fin, line)) {
+        stringstream ss(line);
+        ss >> lastName >> name >> login >> password;
+    }
+
+    fin.close();
+
+    return login;
+}
+
+string admins::getPassword()
+{
+    ifstream fin("CurrentUser.txt");
+    string line;
+
+    while (getline(fin, line)) {
+        stringstream ss(line);
+        ss >> lastName >> name >> login >> password;
+    }
+
+    fin.close();
+
+    return password;
 }

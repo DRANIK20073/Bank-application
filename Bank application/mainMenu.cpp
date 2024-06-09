@@ -66,7 +66,7 @@ void mainMenu()
 					ofstream fout("CurrentAdmin.txt");
 					fout << admin.getLastName() << " ";
 					fout << admin.getName() << " ";
-					fout << admin.getlogin() << " ";
+					fout << admin.getLogin() << " ";
 					fout << admin.getPassword() << " ";
 					fout.close();
 
@@ -77,7 +77,7 @@ void mainMenu()
 					tab();tab(); cout << "     Добро пожаловать!" << endl;
 					Sleep(1000);
 					system("cls");
-					UserMenu();
+					adminMenu();
 				}
 				else {
 					system("cls");
