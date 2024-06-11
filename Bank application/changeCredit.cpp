@@ -21,6 +21,7 @@ void changeCredit()
 		cout << "\t   Введите новое значение ставки при 1-2 лет: ";
 		cin >> rate1;
 		cout << "\t       Процентная ставка успешно обновлена." << endl;
+		Sleep(300);
 		break;
 	}
 	case '2': {
@@ -29,6 +30,7 @@ void changeCredit()
 		cout << "\t   Введите новое значение ставки при 3-5 лет: ";
 		cin >> rate2;
 		cout << "\t       Процентная ставка успешно обновлена." << endl;
+		Sleep(300);
 		break;
 	}
 	case '3': {
@@ -37,6 +39,7 @@ void changeCredit()
 		cout << "\t   Введите новое значение ставки при 6-9 лет: ";
 		cin >> rate3;
 		cout << "\t       Процентная ставка успешно обновлена." << endl;
+		Sleep(300);
 		break;
 	}
 	case 27:
@@ -52,5 +55,5 @@ void changeCredit()
 	fout.close();
 	remove("Credit.txt");
 	rename("temp.txt", "Credit.txt");
-
+	system("cls");
 }
