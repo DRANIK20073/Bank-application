@@ -29,7 +29,7 @@ void Credit() {
         ifstream credits("Credit.txt");
         double rate1, rate2, rate3;
         credits >> rate1 >> rate2 >> rate3;
-        cout << "При 1 - 2 г." << rate1 << "%; При 3 - 5 л." << rate2 << "%; При 6 - 9 л." << rate3 << "%" << endl;
+        cout << "При 1 - 2 г.: " << rate1 << "%; При 3 - 5 л.:" << rate2 << "%; При 6 - 9 л.:" << rate3 << "%" << endl;
         tab();cout << "------------------------------------------------------------" << endl;
         bool work = true;
         while (work) {

@@ -53,8 +53,9 @@ void Users::registration() {
 	cardCVV = "";
 	cardPassword = "";
 	balance = 0;
+	ban = false;
 	user << lastName << " " << name << " " << login << " " << password << " " << balance << " " 
-	<< cardNumber << " " << cardExpiration << " " << cardCVV << cardPassword << endl;
+	<< cardNumber << " " << cardExpiration << " " << cardCVV << cardPassword << " " << ban << endl;
 	user.close();
 
 	cout << "Вы успешно зарегистрировались.";

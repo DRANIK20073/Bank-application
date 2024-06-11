@@ -10,6 +10,7 @@ class Users
 	string login;
 	string password;
 	double balance;
+	bool ban;
 
 	//Карта 
 	string cardNumber;

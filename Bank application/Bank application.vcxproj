@@ -131,6 +131,7 @@
     <ClCompile Include="Admins.cpp" />
     <ClCompile Include="Balance.cpp" />
     <ClCompile Include="Bank application.cpp" />
+    <ClCompile Include="changeCredit.cpp" />
     <ClCompile Include="Credit.cpp" />
     <ClCompile Include="CurrencyExchager.cpp" />
     <ClCompile Include="Header.cpp" />
@@ -138,12 +139,14 @@
     <ClCompile Include="Support.cpp" />
     <ClCompile Include="UserMenu.cpp" />
     <ClCompile Include="Users.cpp" />
+    <ClCompile Include="usersManagement.cpp" />
     <ClCompile Include="userСabinet.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="adminMenu.h" />
     <ClInclude Include="Admins.h" />
     <ClInclude Include="Balance.h" />
+    <ClInclude Include="changeCredit.h" />
     <ClInclude Include="Credit.h" />
     <ClInclude Include="Header.h" />
     <ClInclude Include="CurrencyExchager.h" />
@@ -151,6 +154,7 @@
     <ClInclude Include="Support.h" />
     <ClInclude Include="UserMenu.h" />
     <ClInclude Include="Users.h" />
+    <ClInclude Include="usersManagement.h" />
     <ClInclude Include="userСabinet.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
