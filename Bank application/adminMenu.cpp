@@ -25,6 +25,7 @@ void adminMenu()
 		case '2':
 			//Поддержка
 			system("cls");
+			supportAdmin();
 			Sleep(500);
 			break;
 		case '3':

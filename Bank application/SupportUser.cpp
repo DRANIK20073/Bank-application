@@ -1,13 +1,14 @@
-#include "Support.h"
+#include "SupportUser.h"
 
-void Support()
+void SupportUser()
 {
 	bool work = true;
 
 	while (work) {
 		bank_logo();
-		cout << "1. Обратиться в поддержку" << endl;
-		cout << "Esc. Выйти в меню" << endl;
+		cout << "1.Обратиться в поддержку" << endl;
+		cout << "2.Просмотреть ответы" << endl;
+		cout << "Esc.Выйти в меню" << endl;
 
 		int choice = _getch();
 		switch (choice)
@@ -28,10 +29,24 @@ void Support()
 			string question;
 			getline(cin, question);
 
+			ifstream fin2("questions.txt");
+			int idQuestion = 0;
+			string lastLine;
+			while (getline(fin2, lastLine)) {
+			}
+			fin2.close();
+
+			if (!lastLine.empty()) {
+				stringstream ss(lastLine);
+				ss >> idQuestion;
+				idQuestion++;
+			}
+			else {
+				idQuestion = 1; 
+			}
+
 			ofstream fout("questions.txt", ios::app);
-
-			fout << login << " " << question;
-
+			fout << idQuestion << " " << login << " " << question << endl;
 			fout.close();
 
 			system("cls");

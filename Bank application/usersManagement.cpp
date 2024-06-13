@@ -58,7 +58,7 @@ void usersManagement() {
             >> user.cardNumber >> user.cardExpiration >> user.cardCVV >> user.cardPassword >> user.ban;
         users.push_back(user);
     }
-    fin.close();
+    fin.close();    
 
     int usersPerPage = 3;
     int page = 0;

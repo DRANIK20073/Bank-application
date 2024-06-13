@@ -42,7 +42,7 @@
     <ClCompile Include="Balance.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
-    <ClCompile Include="Support.cpp">
+    <ClCompile Include="SupportUser.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
     <ClCompile Include="adminMenu.cpp">
@@ -55,6 +55,9 @@
       <Filter>Исходные файлы</Filter>
     </ClCompile>
     <ClCompile Include="usersManagement.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="SupportAdmin.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
   </ItemGroup>
@@ -83,7 +86,7 @@
     <ClInclude Include="Balance.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="Support.h">
+    <ClInclude Include="SupportUser.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
     <ClInclude Include="adminMenu.h">
@@ -96,6 +99,9 @@
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
     <ClInclude Include="usersManagement.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="SupportAdmin.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
   </ItemGroup>

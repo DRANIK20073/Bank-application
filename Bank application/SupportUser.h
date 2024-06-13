@@ -3,4 +3,4 @@
 #include "UserMenu.h"
 #include "Users.h"
 
-void Support();
+void SupportUser();

@@ -44,7 +44,7 @@ void UserMenu()
 		case '5':
 			//Обратиться в поддержку
 			system("cls");
-			Support();
+			SupportUser();
 			break;
 		case 27:
 			system("cls");
