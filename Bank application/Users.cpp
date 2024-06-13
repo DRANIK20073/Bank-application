@@ -21,7 +21,25 @@ string generateRandomString(int length) {
 //Регистрация
 void Users::registration() {
 	cout << "Фамилия: ";
-	cin >> lastName;
+	while (true) {
+		char ch = _getch();
+		if (ch == 27) {
+			system("cls");
+			mainMenu();
+			break;
+		}
+		if (ch == '\b') {
+			if (!lastName.empty()) {
+				cout << "\b \b";
+				lastName.pop_back();
+			}
+		}
+		else {
+			cout << ch;
+			lastName += ch;
+		}
+	}
+	cout << endl;
 	cout << "Имя: ";
 	cin >> name;
 	cout << "Логин: ";
