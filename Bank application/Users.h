@@ -17,6 +17,7 @@ class Users
 	string cardExpiration;
 	string cardCVV;
 	string cardPassword;
+
 public:
 	Users();
 
