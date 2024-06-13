@@ -23,29 +23,103 @@ void Users::registration() {
 	cout << "Фамилия: ";
 	while (true) {
 		char ch = _getch();
-		if (ch == 27) {
+		if (ch == '\r') {
+			if (!lastName.empty()) {
+				break;
+			}
+		}
+		else if (ch == 27) {
 			system("cls");
 			mainMenu();
 			break;
 		}
-		if (ch == '\b') {
+		else if (ch == '\b') {
 			if (!lastName.empty()) {
 				cout << "\b \b";
 				lastName.pop_back();
 			}
 		}
-		else {
+		else if (ch != '\n') {
 			cout << ch;
 			lastName += ch;
 		}
 	}
 	cout << endl;
 	cout << "Имя: ";
-	cin >> name;
+	while (true) {
+		char ch = _getch();
+		if (ch == '\r') {
+			if (!name.empty()) {
+				break;
+			}
+		}
+		else if (ch == 27) {
+			system("cls");
+			mainMenu();
+			break;
+		}
+		else if (ch == '\b') {
+			if (!name.empty()) {
+				cout << "\b \b";
+				name.pop_back();
+			}
+		}
+		else if (ch != '\n') {
+			cout << ch;
+			name += ch;
+		}
+	}
+	cout << endl;
 	cout << "Логин: ";
-	cin >> login;
+	while (true) {
+		char ch = _getch();
+		if (ch == '\r') {
+			if (!login.empty()) {
+				break;
+			}
+		}
+		else if (ch == 27) {
+			system("cls");
+			mainMenu();
+			break;
+		}
+		else if (ch == '\b') {
+			if (!login.empty()) {
+				cout << "\b \b";
+				login.pop_back();
+			}
+		}
+		else if (ch != '\n') {
+			cout << ch;
+			login += ch;
+		}
+	}
+	cout << endl;
 	cout << "Пароль: ";
-	cin >> password;
+	while (true) {
+		char ch = _getch();
+		if (ch == '\r') {
+			if (!password.empty()) {
+				break;
+			}
+		}
+		else if (ch == 27) {
+			system("cls");
+			mainMenu();
+			break;
+		}
+		else if (ch == '\b') {
+			if (!password.empty()) {
+				cout << "\b \b";
+				password.pop_back();
+			}
+		}
+		else if (ch != '\n') {
+			cout << ch;
+			password += ch;
+		}
+	}
+	cout << endl;
 	system("cls");
 
 	ifstream fin("Users.txt");

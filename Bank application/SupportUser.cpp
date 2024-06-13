@@ -27,7 +27,6 @@ void SupportUser()
             cout << "Введите ваше обращение в поддержку" << endl;
             cin.ignore();
             string question;
-            string question;
             char ch;
             while ((ch = _getch()) != '\r') { // '\r' - символ Enter
                 if (ch == '\b') { // Обработка backspace
