@@ -8,9 +8,9 @@ bool admins::adminLogin()
 {
     string loginInput;
     string passwordInput;
-    tab(); tab(); cout << "\t Логин: ";
+    tab(); tab(); cout << "\t  Логин: ";
     cin >> loginInput;
-    tab(); tab(); cout << "\t Пароль: ";
+    tab(); tab(); cout << "\t  Пароль: ";
     cin >> passwordInput;
 
     ifstream userFile("Admins.txt");

@@ -9,12 +9,11 @@ void mainMenu()
 	admins admin;
 
 	while (work) {
-		bank_logo();
-		cout << endl; 
-		tab();tab(); cout << "1.Войти как пользователь." << endl;
-		tab();tab(); cout << "2.Войти как администратор." << endl;
-		tab();tab(); cout << "3.Зарегистрироваться." << endl;
-		tab();tab(); cout << "Esc.Выход";
+		bank_logo(); 
+		tab();tab(); cout << "  1.Войти как пользователь." << endl;
+		tab();tab(); cout << "  2.Войти как администратор." << endl;
+		tab();tab(); cout << "  3.Зарегистрироваться." << endl;
+		tab();tab(); cout << "  Esc.Выход";
 
 		int choice;
 		choice = _getch();

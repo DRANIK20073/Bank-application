@@ -5,7 +5,6 @@ void adminMenu()
 	bool work = true;
 	while (work) {
 		bank_logo();
-		cout << endl;
 		cout << "\t\t    1.Изменить процентную ставку" << endl;
 		cout << "\t\t    2.Поддержка пользователей" << endl;
 		cout << "\t\t    3.Пользователи" << endl;

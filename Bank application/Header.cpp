@@ -9,6 +9,7 @@ void settings()
 	SetConsoleCursorInfo(hStdOut, &structCursorInfo);
 
 	system("mode con cols=68 lines=32");
+	system("color 06");
 	HWND consoleWindow = GetConsoleWindow();
 	SetWindowLongPtr(consoleWindow, GWL_STYLE, GetWindowLongPtr(consoleWindow, GWL_STYLE) & ~WS_THICKFRAME);
 	SetWindowLongPtr(consoleWindow, GWL_STYLE, GetWindowLongPtr(consoleWindow, GWL_STYLE) & ~WS_MAXIMIZEBOX);

@@ -6,11 +6,12 @@ struct User {
     string login;
     string password;
     double balance;
+    string ban;
+
     string cardNumber;
     string cardExpiration;
     string cardCVV;
     string cardPassword;
-    bool ban;
 };
 
 void displayUsers(const vector<User>& users, int page, int usersPerPage) {
@@ -34,7 +35,13 @@ void displayUsers(const vector<User>& users, int page, int usersPerPage) {
             cout << "Пароль карты: " << user.cardPassword << endl;
         }
 
-        cout << "Бан: " << (user.ban ? "Да" : "Нет") << endl;
+        cout << "Бан: ";
+        if (user.ban == "true") {
+            cout << "Да" << endl;
+        }
+        else {
+            cout << "Нет" << endl;
+        }
         cout << "-------------------------" << endl;
     }
 
@@ -46,7 +53,7 @@ void displayUsers(const vector<User>& users, int page, int usersPerPage) {
 void usersManagement() {
     ifstream fin("Users.txt");
 
-    system("mode con cols=72 lines=35");
+    system("mode con cols=72 lines=43");
 
     vector<User> users;
     string line;
@@ -54,8 +61,8 @@ void usersManagement() {
     while (getline(fin, line)) {
         stringstream ss(line);
         User user;
-        ss >> user.lastName >> user.name >> user.login >> user.password >> user.balance
-            >> user.cardNumber >> user.cardExpiration >> user.cardCVV >> user.cardPassword >> user.ban;
+        ss >> user.lastName >> user.name >> user.login >> user.password >> user.balance >> user.ban
+            >> user.cardNumber >> user.cardExpiration >> user.cardCVV >> user.cardPassword;
         users.push_back(user);
     }
     fin.close();    
@@ -79,16 +86,22 @@ void usersManagement() {
             int userIndex;
             cin >> userIndex;
             if (userIndex > 0 && userIndex <= users.size()) {
-                cout << "Текущий статус пользователя: " << (users[userIndex - 1].ban ? "Забанен" : "Не забанен") << endl;
+                cout << "Текущий статус пользователя: ";
+                if (users[userIndex - 1].ban == "true") {
+                    cout << "Забанен" << endl;
+                }
+                else {
+                    cout << "Не забанен" << endl;
+                }
                 cout << "Введите 1 для бана или 0 для разбана: ";
                 int banChoice;
                 cin >> banChoice;
                 if (banChoice == 1) {
-                    users[userIndex - 1].ban = true;
+                    users[userIndex - 1].ban = "true";
                     cout << "Пользователь " << userIndex << " забанен." << endl;
                 }
                 else if (banChoice == 0) {
-                    users[userIndex - 1].ban = false;
+                    users[userIndex - 1].ban = "false";
                     cout << "Пользователь " << userIndex << " разбанен." << endl;
                 }
                 else {
@@ -98,9 +111,8 @@ void usersManagement() {
                 ofstream fout("Users.txt");
                 for (const auto& user : users) {
                     fout << user.lastName << " " << user.name << " " << user.login << " "
-                        << user.password << " " << user.balance << " " << user.cardNumber << " "
-                        << user.cardExpiration << " " << user.cardCVV << " " << user.cardPassword << " "
-                        << user.ban << endl;
+                        << user.password << " " << user.balance << " " << user.ban << " " << user.cardNumber << " "
+                        << user.cardExpiration << " " << user.cardCVV << " " << user.cardPassword << " " << endl;
                 }
                 fout.close();
             }
