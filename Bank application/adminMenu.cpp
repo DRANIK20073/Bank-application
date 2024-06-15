@@ -16,7 +16,6 @@ void adminMenu()
 		case '1': {
 			// Изменение процентной ставки
 			system("cls");
-			bank_logo();
 			changeCredit();
 			Sleep(500);
 			break;

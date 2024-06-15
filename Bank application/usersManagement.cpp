@@ -53,7 +53,7 @@ void displayUsers(const vector<User>& users, int page, int usersPerPage) {
 void usersManagement() {
     ifstream fin("Users.txt");
 
-    system("mode con cols=72 lines=43");
+    system("mode con cols=72 lines=35");
 
     vector<User> users;
     string line;

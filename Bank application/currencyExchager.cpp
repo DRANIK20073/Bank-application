@@ -17,14 +17,14 @@ void exchanger() {
 	tab();tab();cout << "Выберите валюту которую нужно перевести:" << endl;
 	tab();tab();cout << "	  1.USD  " << "2.BYN  " << "3.EUR  " << "4.RUB  " << endl;
 	int old_currency_choice;
-	tab();tab();cout << "Выбор: ";
+	tab();tab();cout << "\t\t    Выбор: ";
 	cin >> old_currency_choice;
 
 	//Выбор валюты в которую нужно перевести
 	tab();cout << "------------------------------------------------------------" << endl;
 	tab();tab();cout << "Выберите валюту в которую нужно перевести:" << endl;
 	tab();tab();cout << "	  1.USD  " << "2.BYN  " << "3.EUR  " << "4.RUB  " << endl;
-	tab();tab();cout << "Выбор: ";
+	tab();tab();cout << "\t\t    Выбор: ";
 	int new_currency_choice;
 	cin >> new_currency_choice;
 
@@ -120,8 +120,8 @@ void currencyExchanger()
 	tab();tab();cout << "1 EUR: " << BYN[2] * 10 << " BYN"; cout << "		EUR/RUB: " << EUR[3] << " RUB" << endl;
 	tab();tab();cout << "100 RUB: " << RUB[1] * 100 << " BYN"; cout << "		USD/RUB: " << USD[3] << " RUB" << endl;
 	tab();cout << "------------------------------------------------------------" << endl;
-	tab();tab();cout << "		1.Конвертер валют" << endl;
-	tab();tab();cout << "		Esc.Выйти в меню" << endl;
+	tab();tab();cout << "		     1.Начать" << endl;
+	tab();tab();cout << "		 Esc.Выйти в меню" << endl;
 	tab();cout << "------------------------------------------------------------" << endl;
 
 	int choice = _getch();

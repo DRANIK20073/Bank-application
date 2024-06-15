@@ -2,20 +2,21 @@
 
 void SupportUser()
 {
+    system("mode con cols=80 lines=20");
     bool work = true;
 
     while (work) {
-        bank_logo();
-        cout << "1.Обратиться в поддержку" << endl;
-        cout << "2.Просмотреть ответы" << endl;
-        cout << "Esc.Выйти в меню" << endl;
+        center(); cout << "-------------------------[Поддержка]------------------------" << endl;
+        cout << "\t\t\t     1.Обратиться в поддержку" << endl;
+        cout << "\t\t\t      2.Просмотреть ответы" << endl;
+        cout << "\t\t\t        Esc.Выйти в меню" << endl;
+        cout << "\t  ------------------------------------------------------------" << endl;
 
         int choice = _getch();
-        switch (choice)
-        {
+        switch (choice) {
         case '1': {
             system("cls");
-            bank_logo();
+            center(); cout << "------------------------------------------------------------" << endl;
 
             ifstream fin("CurrentUser.txt");
 
@@ -24,21 +25,34 @@ void SupportUser()
             fin >> lastName >> name >> login >> password >> balance >> cardNumber >> cardExpiration >> cardCVV >> cardPassword;
             fin.close();
 
-            cout << "Введите ваше обращение в поддержку" << endl;
-            cin.ignore();
+            cout << "\t\t\tВведите ваше обращение в поддержку:" << endl;
+            cout << "\t  ";
             string question;
-            char ch;
-            while ((ch = _getch()) != '\r') { // '\r' - символ Enter
-                if (ch == '\b') { // Обработка backspace
-                    if (!question.empty()) {
-                        cout << "\b \b"; // Удаление символа с экрана
-                        question.pop_back();
+            while (true) {
+                while (true) {
+                    char ch = _getch();
+                    if (ch == '\r') {
+                        if (!question.empty()) {
+                            break;
+                        }
+                    }
+                    else if (ch == 27) {
+                        system("cls");
+                        SupportUser();
+                        break;
+                    }
+                    else if (ch == '\b') {
+                        if (!question.empty()) {
+                            cout << "\b \b";
+                            question.pop_back();
+                        }
+                    }
+                    else if (ch != '\n') {
+                        cout << ch;
+                        question += ch;
                     }
                 }
-                else {
-                    cout << ch; // Отображение символа на экране
-                    question += ch; // Добавление символа в строку
-                }
+                break;
             }
             cout << endl;
 
@@ -56,39 +70,63 @@ void SupportUser()
             }
             fin2.close();
 
-            idQuestion++; 
+            idQuestion++;
 
             ofstream fout("questions.txt", ios::app);
             fout << idQuestion << " " << login << " " << question << endl;
             fout.close();
 
             system("cls");
-            cout << endl;
-            bank_logo();
-            cout << "Ваше обращение отправлено!" << endl;
-            Sleep(500);
+            center();cout << "------------------------------------------------------------" << endl;
+            cout << "\t\t\t Ваше обращение отправлено!" << endl;
+            cout << "\t  ------------------------------------------------------------" << endl;
+            Sleep(1000);
             system("cls");
             break;
         }
         case '2': {
             system("cls");
-            system("cls");
-            bank_logo();
 
-            ifstream fin("answers.txt");
+            ifstream fin("CurrentUser.txt");
             string line;
-            cout << "Ответы на ваши обращения:" << endl;
+            string login;
 
             while (getline(fin, line)) {
-                    cout << line << endl;
+                stringstream ss(line);
+                string currentLastName, currentName, currentLogin, currentPassword, currentCardNumber, currentCardExpiration, currentCardCVV, currentCardPassword;
+                double currentBalance;
+                string currentBan;
+
+                ss >> currentLastName >> currentName >> currentLogin >> currentPassword >> currentBalance >> currentBan >> currentCardNumber >> currentCardExpiration >> currentCardCVV >> currentCardPassword;
+                
+                login = currentLogin;
             }
             fin.close();
 
-            cout << "Нажмите любую клавишу для возврата в меню" << endl;
+            ifstream fin2("answers.txt");
+            string answer;
+            cout << "Ответы на ваши обращения:" << endl;
+            line.clear();
+
+            while (getline(fin2, line)) {
+                stringstream ss(line);
+                string id, num;
+
+                ss >> num >> id;
+                getline(ss, answer);
+
+                if (login == id) {
+                    cout << "Ответ: " << answer << endl << endl;
+                }
+            }
+            
+            fin2.close();
+
+            cout << endl << "Нажмите любую клавишу для возврата в меню..." << endl;
             _getch();
             system("cls");
             break;
-            }
+        }
         case 27:
             work = false;
             UserMenu();

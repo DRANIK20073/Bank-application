@@ -8,10 +8,57 @@ bool admins::adminLogin()
 {
     string loginInput;
     string passwordInput;
-    tab(); tab(); cout << "\t  Логин: ";
-    cin >> loginInput;
-    tab(); tab(); cout << "\t  Пароль: ";
-    cin >> passwordInput;
+    cout << "\t\t\t    Логин: ";
+    while (true) {
+        char ch = _getch();
+        if (ch == '\r') {
+            if (!loginInput.empty()) {
+                break;
+            }
+        }
+        else if (ch == 27) {
+            system("cls");
+            mainMenu();
+            break;
+        }
+        else if (ch == '\b') {
+            if (!loginInput.empty()) {
+                cout << "\b \b";
+                loginInput.pop_back();
+            }
+        }
+        else if (ch != '\n') {
+            cout << ch;
+            loginInput += ch;
+        }
+    }
+    cout << endl;
+
+    cout << "\t\t\t    Пароль: ";
+    while (true) {
+        char ch = _getch();
+        if (ch == '\r') {
+            if (!passwordInput.empty()) {
+                break;
+            }
+        }
+        else if (ch == 27) {
+            system("cls");
+            mainMenu();
+            break;
+        }
+        else if (ch == '\b') {
+            if (!passwordInput.empty()) {
+                cout << "\b \b";
+                passwordInput.pop_back();
+            }
+        }
+        else if (ch != '\n') {
+            cout << ch;
+            passwordInput += ch;
+        }
+    }
+    cout << endl;
 
     ifstream userFile("Admins.txt");
 

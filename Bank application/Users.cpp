@@ -171,7 +171,8 @@ void Users::registration() {
 	<< cardNumber << " " << cardExpiration << " " << cardCVV << cardPassword << " " << endl;
 	user.close();
 
-	cout << "Вы успешно зарегистрировались.";
+	bank_logo();
+	cout << "\t\t   Вы успешно зарегистрировались.";
 	Sleep(1500);
 	system("cls");
 	mainMenu();
@@ -181,7 +182,7 @@ void Users::registration() {
 bool Users::loginUser() {
 	string loginInput;
 	string passwordInput;
-	tab();tab(); cout << "\t  Логин: ";
+	tab();tab(); cout << "\t    Логин: ";
 	while (true) {
 		char ch = _getch();
 		if (ch == '\r') {
@@ -206,7 +207,7 @@ bool Users::loginUser() {
 		}
 	}
 	cout << endl;
-	tab();tab(); cout << "\t  Пароль: ";
+	tab();tab(); cout << "\t    Пароль: ";
 	while (true) {
 		char ch = _getch();
 		if (ch == '\r') {
@@ -306,10 +307,10 @@ void Users::showInformation() {
 
 	fin.close();
 
-	tab();tab();tab();cout << "   Фамилия: " << lastName << endl;
-	tab();tab();tab();cout << "   Имя: " << name << endl;
-	tab();tab();tab();cout << "   Логин: " << login << endl;
-	tab();tab();tab();cout << "   Пароль: " << password << endl;
+	cout << "\t\t\t          Фамилия: " << lastName << endl;
+	cout << "\t\t\t          Имя: " << name << endl;
+	cout << "\t\t\t          Логин: " << login << endl;
+	cout << "\t\t\t          Пароль: " << password << endl;
 }
 
 string Users::getLastName()
@@ -472,9 +473,38 @@ void Users::addBalance()
 	ofstream fout("temp.txt");
 	string line;
 
-	double num;
-	cout << "Введите сумму: ";
-	cin >> num;
+	double num = 0;
+	string numStr = to_string(num);
+	while (true) {
+		center();cout << "------------------------------------------------------------" << endl;
+		cout << "\t\t\t         Введите сумму: ";
+		numStr.clear();
+		while (true) {
+			char ch = _getch();
+			if (ch == '\r') {
+				break;
+			}
+			else if (ch == 27) {
+				system("cls");
+				Balance();
+			}
+			else if (ch == '\b') {
+				if (!numStr.empty()) {
+					cout << "\b \b";
+					numStr.pop_back();
+				}
+			}
+			else if (ch != '\n') {
+				cout << ch;
+				numStr += ch;
+			}
+		}
+		cout << endl << "\t\t\t      Баланс успешно пополнен." << endl;
+		cout << "\t  ------------------------------------------------------------" << endl;
+		Sleep(800);
+		break;
+	}
+	num = stod(numStr);
 	balance += num;
 
 	while (getline(fin, line)) {
@@ -487,6 +517,16 @@ void Users::addBalance()
 
 		if (currentLogin == login && currentPassword == password) {
 			fout << currentLastName << " " << currentName << " " << currentLogin << " " << currentPassword << " " << balance << " " << currentBan << " " << currentCardNumber << " " << currentCardExpiration << " " << currentCardCVV << " " << currentCardPassword << endl;
+			lastName = currentLastName;
+			name = currentName;
+			login = currentLogin;
+			password = currentPassword;
+			
+			ban = currentBan;
+			cardNumber = currentCardNumber;
+			cardExpiration = currentCardExpiration;
+			cardCVV = currentCardCVV;
+			cardPassword = currentCardPassword;
 		}
 		else {
 			fout << currentLastName << " " << currentName << " " << currentLogin << " " << currentPassword << " " << currentBalance << " " << currentBan << " " << currentCardNumber << " " << currentCardExpiration << " " << currentCardCVV << " " << currentCardPassword << endl;
@@ -501,18 +541,13 @@ void Users::addBalance()
 
 	// Обновление CurrentUser.txt
 	ofstream currentUserFile("CurrentUser.txt");
-	currentUserFile << lastName << " " << name << " " << login << " " << password << " " << balance << " " << cardNumber << " " << cardExpiration << " " << cardCVV << " " << cardPassword;
+	currentUserFile << lastName << " " << name << " " << login << " " << password << " " << balance << " " << ban << " " << cardNumber << " " << cardExpiration << " " << cardCVV << " " << cardPassword;
 	currentUserFile.close();
-
-	cout << "Баланс успешно обновлен!" << endl;
-	Sleep(800);
 }
 
 bool isDigitsOnly(const string& str) {
 	return all_of(str.begin(), str.end(), ::isdigit);
 }
-
-
 
 //Создать карту
 void Users::addCard()
@@ -528,9 +563,9 @@ void Users::addCard()
 
 	if (!cardNumber.empty()) {
 		system("cls");
-		center(); cout << "\t\t------------------------------------------------------------" << endl;
+		center(); cout << "------------------------------------------------------------" << endl;
 		cout << "\t\tУ вас уже есть карта, невозможно создать новую." << endl;
-		cout << "\t\t------------------------------------------------------------" << endl;
+		cout << "\t  ------------------------------------------------------------" << endl;
 		Sleep(1500);
 		Balance();
 	}
@@ -599,7 +634,8 @@ void Users::addCard()
 			system("cls");
 		}
 		else {
-			cout << endl << "Карта успешно создана." << endl;
+			cout << endl << "\t\t\t      Карта успешно создана." << endl;
+			cout << "\t  ------------------------------------------------------------" << endl;
 			Sleep(800);
 			break; 
 		}
@@ -638,17 +674,20 @@ void Users::addCard()
 
 //Вид карты
 bool Users::displayCard()
-{
+{	
 	string CardNumber = cardNumber;
 	string CardExpiration = cardExpiration;
 	string CardCVV = cardCVV;
 
 	if (CardNumber.empty()) {
-		cout << "У вас нет активной карты." << endl;
-		Sleep(1000);
+		center();cout << "------------------------------------------------------------" << endl;
+		cout << "\t\t\t    У вас нет активной карты." << endl;
+		cout << "\t  ------------------------------------------------------------" << endl;
+		Sleep(800);
 		return false;
 	}
 	else {
+		cout << "\n\n\n\n\n";
 		cout << "\t\t       **********************************" << endl;
 		cout << "\t\t       * ТриорБанк                      *" << endl;
 		cout << "\t\t       *                                *" << endl;
@@ -663,9 +702,44 @@ bool Users::displayCard()
 
 //Перевести деньги на карту другого пользователя
 void Users::transferMoney() {
-	cout << "Введите номер карты другого пользователя: ";
+
 	string anotherUserCard;
-	cin >> anotherUserCard;
+	while (true) {
+		center();cout << "------------------------------------------------------------" << endl;
+		cout << "\t   Введите номер карты другого пользователя: ";
+		anotherUserCard.clear();
+		while (true) {
+			char ch = _getch();
+			if (ch == '\r') {
+				if (anotherUserCard.length() != 16 || !isDigitsOnly(anotherUserCard)) {
+					cout << endl;
+					cout << "\t\t     Номер карты должен состоять из 16 цифр." << endl;
+					Sleep(1000);
+					system("cls");
+					transferMoney();
+					break;
+				}
+				else {
+					break;
+				}
+			}
+			else if (ch == 27) {
+				system("cls");
+				Balance();
+			}
+			else if (ch == '\b') {
+				if (!anotherUserCard.empty()) {
+					cout << "\b \b";
+					anotherUserCard.pop_back();
+				}
+			}
+			else if (ch != '\n') {
+				cout << ch;
+				anotherUserCard += ch;
+			}
+		}
+		break;
+	}
 
 	bool userFound = false;
 	double transferAmount;
@@ -689,11 +763,39 @@ void Users::transferMoney() {
 	currentFin.close();
 
 	// Проверка введенной суммы
-	cout << "Введите сумму: ";
-	cin >> transferAmount;
+	string transferAmountStr;
+	while (true) {
+		cout << endl << "\t\t\t          Введите сумму: ";
+		transferAmountStr.clear();
+		while (true) {
+			char ch = _getch();
+			if (ch == '\r') {
+				break;
+			}
+			else if (ch == 27) {
+				system("cls");
+				Balance();
+			}
+			else if (ch == '\b') {
+				if (!transferAmountStr.empty()) {
+					cout << "\b \b";
+					transferAmountStr.pop_back();
+				}
+			}
+			else if (ch != '\n') {
+				cout << ch;
+				transferAmountStr += ch;
+			}
+		}
+		break;
+	}
+
+	transferAmount = stod(transferAmountStr);
 	if (transferAmount > currentUserBalance) {
-		cout << "Недостаточно средств на счете." << endl;
-		return;
+		cout << endl << "\t\t     Недостаточно средств на счете." << endl;
+		cout << "\t  ------------------------------------------------------------" << endl;
+		Sleep(800);
+		transferMoney();
 	}
 
 	// Обновление Users.txt
@@ -736,8 +838,12 @@ void Users::transferMoney() {
 	fout.close();
 
 	if (!userFound) {
-		cerr << "Пользователь с введенным номером карты не найден." << endl;
+		cerr << endl << "\t         Пользователь с введенным номером карты не найден." << endl;
+		cout << "\t  ------------------------------------------------------------" << endl;
+		Sleep(1000);
 		remove("temp.txt");
+		system("cls");
+		transferMoney();
 		return;
 	}
 
@@ -760,10 +866,12 @@ void Users::transferMoney() {
 	currentUserFile << currentUserLastName << " " << currentUserName << " " << currentUserLogin << " " << currentUserPassword << " " << currentUserBalance << " " << currentUserBan << " " << currentUserCardNumber << " " << currentUserCardExpiration << " " << currentUserCardCVV << " " << currentUserCardPassword;
 	currentUserFile.close();
 
-	cout << "Деньги успешно переведены!" << endl;
-	Sleep(500);
+	cout << endl << "\t\t\t     Деньги успешно переведены!" << endl;
+	cout << "\t  ------------------------------------------------------------" << endl;
+	Sleep(800);
+	system("cls");
+	Balance();
 }
-
 
 //Изменить пароль карты
 void Users::changeCardPassword() {
@@ -812,6 +920,7 @@ void Users::changeCardPassword() {
 		else {
 			cout << endl;
 			cout << "\t\t         Пароль карты успешно изменен!" << endl;
+			cout << "\t  ------------------------------------------------------------" << endl;
 			Sleep(800);
 			break;
 		}
@@ -887,7 +996,9 @@ void Users::deleteCard() {
 	currentUserFile << lastName << " " << name << " " << login << " " << password << " " << balance << " " << ban << " " << "" << " " << "" << " " << "" << " " << "" << endl;
 	currentUserFile.close();
 
-	cout << "Карта успешно удалена!" << endl;
+	center();cout << "------------------------------------------------------------" << endl;
+	cout << "\t\t\t      Карта успешно удалена!" << endl;
+	tab();cout << "------------------------------------------------------------" << endl;
 	Sleep(800);
 }
 
@@ -925,12 +1036,38 @@ void Users::changePassword()
 {	
 	center();cout << "------------------------------------------------------------" << endl;
 	string newPassword;
-	tab();tab();cout << "\t     Введите новый пароль: ";
-	cin >> newPassword;
-	tab();cout << "------------------------------------------------------------" << endl;
-	tab();tab();cout << "\t    1.Подтвердить изменения" << endl;
-	tab();tab();cout << "\t    2.Ввести данные заново" << endl;
-	tab();tab();cout << "\t    Esc.Выйти в меню" << endl;
+	while (true) {
+		cout << "\t\t\t      Введите новый пароль: ";
+		while (true) {
+			char ch = _getch();
+			if (ch == '\r') {
+				if (!newPassword.empty()) {
+					break;
+				}
+			}
+			else if (ch == 27) {
+				system("cls");
+				userCabinet();
+				break;
+			}
+			else if (ch == '\b') {
+				if (!newPassword.empty()) {
+					cout << "\b \b";
+					newPassword.pop_back();
+				}
+			}
+			else if (ch != '\n') {
+				cout << ch;
+				newPassword += ch;
+			}
+		}
+		break;
+	}
+	cout << endl;
+	cout << "\t  ------------------------------------------------------------" << endl;
+	cout << "\t\t\t      1.Подтвердить изменения" << endl;
+	cout << "\t\t\t      2.Ввести данные заново" << endl;
+	cout << "\t\t\t         Esc.Выйти в меню" << endl;
 
 	ifstream fin("Users.txt");
 	ofstream fout("temp.txt");
@@ -945,7 +1082,7 @@ void Users::changePassword()
 			stringstream ss(line);
 			string currentLastName, currentName, currentLogin, currentPassword, currentCardNumber, currentCardExpiry, currentCardCVV, currentCardPassword;
 			double currentBalance;
-			bool currentBan;
+			string currentBan;
 
 			ss >> currentLastName >> currentName >> currentLogin >> currentPassword >> currentBalance >> currentBan >> currentCardNumber >> currentCardExpiry >> currentCardCVV >> currentCardPassword;
 
@@ -969,8 +1106,9 @@ void Users::changePassword()
 			ofstream currentUser("currentUser.txt");
 			currentUser << lastName << " " << name << " " << login << " " << password << " " << balance << " " << ban << " " << cardNumber << " " << cardExpiration << " " << cardCVV << " " << cardPassword << endl;
 			currentUser.close();
-
-			tab();tab();tab();cout << "Пароль успешно изменен!" << endl;
+			cout << "\t  ------------------------------------------------------------" << endl;
+			cout << "\t\t\t      Пароль успешно изменен!" << endl;
+			cout << "\t  ------------------------------------------------------------" << endl;
 			Sleep(1000);
 		}
 		else {
@@ -996,12 +1134,38 @@ void Users::changeName()
 {
 	center();cout << "------------------------------------------------------------" << endl;
 	string newName;
-	tab();tab();cout << "\t    Введите новое имя: ";
-	cin >> newName;
-	tab();cout << "------------------------------------------------------------" << endl;
-	tab();tab();cout << "\t    1.Подтвердить изменения" << endl;
-	tab();tab();cout << "\t    2.Ввести данные заново" << endl;
-	tab();tab();cout << "\t    Esc.Выйти в меню" << endl;
+	while (true) {
+		cout << "\t\t\t       Введите новое имя: ";
+		while (true) {
+			char ch = _getch();
+			if (ch == '\r') {
+				if (!newName.empty()) {
+					break;
+				}
+			}
+			else if (ch == 27) {
+				system("cls");
+				userCabinet();
+				break;
+			}
+			else if (ch == '\b') {
+				if (!newName.empty()) {
+					cout << "\b \b";
+					newName.pop_back();
+				}
+			}
+			else if (ch != '\n') {
+				cout << ch;
+				newName += ch;
+			}
+		}
+		break;
+	}
+	cout << endl;
+	cout << "\t  ------------------------------------------------------------" << endl;
+	cout << "\t\t\t     1.Подтвердить изменения" << endl;
+	cout << "\t\t\t     2.Ввести данные заново" << endl;
+	cout << "\t\t\t        Esc.Выйти в меню" << endl;
 	
 	ifstream fin("Users.txt");
 	ofstream fout("temp.txt");
@@ -1015,7 +1179,7 @@ void Users::changeName()
 			stringstream ss(line);
 			string currentLastName, currentName, currentLogin, currentPassword, currentCardNumber, currentCardExpiry, currentCardCVV, currentCardPassword;
 			double currentBalance;
-			bool currentBan;
+			string currentBan;
 
 			ss >> currentLastName >> currentName >> currentLogin >> currentPassword >> currentBalance >> currentBan >> currentCardNumber >> currentCardExpiry >> currentCardCVV >> currentCardPassword;
 
@@ -1039,8 +1203,9 @@ void Users::changeName()
 			ofstream currentUser("currentUser.txt");
 			currentUser << lastName << " " << name << " " << login << " " << password << " " << balance << " " << ban << " " << cardNumber << " " << cardExpiration << " " << cardCVV << " " << cardPassword << endl;
 			currentUser.close();
-
-			tab();tab();tab();cout << "Имя успешно изменен!" << endl;
+			cout << "\t  ------------------------------------------------------------" << endl;
+			cout << "\t\t\t       Имя успешно изменен!" << endl;
+			cout << "\t  ------------------------------------------------------------" << endl;
 			Sleep(1000);
 		}
 		else {
@@ -1068,12 +1233,38 @@ void Users::changeLastName()
 {
 	center();cout << "------------------------------------------------------------" << endl;
 	string newLastName;
-	tab();tab();cout << "\t   Введите новую фамилию: ";
-	cin >> newLastName;
-	tab();cout << "------------------------------------------------------------" << endl;
-	tab();tab();cout << "\t    1.Подтвердить изменения" << endl;
-	tab();tab();cout << "\t    2.Ввести данные заново" << endl;
-	tab();tab();cout << "\t    Esc.Выйти в меню" << endl;
+	while (true) {
+		cout << "\t\t\t     Введите новую фамилию: ";
+		while (true) {
+			char ch = _getch();
+			if (ch == '\r') {
+				if (!newLastName.empty()) {
+					break;
+				}
+			}
+			else if (ch == 27) {
+				system("cls");
+				userCabinet();
+				break;
+			}
+			else if (ch == '\b') {
+				if (!newLastName.empty()) {
+					cout << "\b \b";
+					newLastName.pop_back();
+				}
+			}
+			else if (ch != '\n') {
+				cout << ch;
+				newLastName += ch;
+			}
+		}
+		break;
+	}
+	cout << endl;
+	cout << "\t  ------------------------------------------------------------" << endl;
+	cout << "\t\t\t     1.Подтвердить изменения" << endl;
+	cout << "\t\t\t     2.Ввести данные заново" << endl;
+	cout << "\t\t\t        Esc.Выйти в меню" << endl;
 
 	ifstream fin("Users.txt");
 	ofstream fout("temp.txt");
@@ -1113,8 +1304,9 @@ void Users::changeLastName()
 			ofstream currentUser("currentUser.txt");
 			currentUser << lastName << " " << name << " " << login << " " << password << " " << balance << " " << ban << " " << cardNumber << " " << cardExpiration << " " << cardCVV << " " << cardPassword << endl;
 			currentUser.close();
-
-			tab();tab();tab();cout << "Фамилия успешно изменена!" << endl;
+			cout << "\t  ------------------------------------------------------------" << endl;
+			cout << "\t\t\t     Фамилия успешно изменена!" << endl;
+			cout << "\t  ------------------------------------------------------------" << endl;
 			Sleep(1000);
 		}
 		else {

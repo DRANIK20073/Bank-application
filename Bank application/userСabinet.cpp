@@ -14,7 +14,7 @@ void userCabinet()
 
 	int choice;
 	choice = _getch();
-
+	currentUser.loadUserInformation();
 	switch (choice) {
 	case '1':
 		system("cls");

@@ -8,7 +8,7 @@ void settings()
 	structCursorInfo.bVisible = false; // изменяем видимость курсора
 	SetConsoleCursorInfo(hStdOut, &structCursorInfo);
 
-	system("mode con cols=68 lines=32");
+	system("mode con cols=68 lines=31");
 	system("color 06");
 	HWND consoleWindow = GetConsoleWindow();
 	SetWindowLongPtr(consoleWindow, GWL_STYLE, GetWindowLongPtr(consoleWindow, GWL_STYLE) & ~WS_THICKFRAME);

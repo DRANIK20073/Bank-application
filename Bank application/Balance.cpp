@@ -10,11 +10,11 @@ void Balance()
 		center();cout << "---------------------------[Cчёт]---------------------------" << endl;
 		cout << "\t\t\t\tБаланс: " << currentUser.getBalance() << " BYN" << endl;
 		tab();cout << "------------------------------------------------------------" << endl;
-		cout << "\t\t\t\t 1.Пополнить баланс" << endl;
-		cout << "\t\t\t\t 2.Завести карту" << endl;
-		cout << "\t\t\t\t 3.Моя карта" << endl;
-		cout << "\t\t\t\t 4.Перевести деньги" << endl;
-		cout << "\t\t\t\t Esc.Вернуться в меню" << endl;
+		cout << "\t\t\t\t1.Пополнить баланс" << endl;
+		cout << "\t\t\t\t2.Завести карту" << endl;
+		cout << "\t\t\t\t3.Моя карта" << endl;
+		cout << "\t\t\t\t4.Перевести деньги" << endl;
+		cout << "\t\t\t\tEsc.Вернуться в меню" << endl;
 
 		int choice = _getch();
 		switch (choice) {
@@ -32,13 +32,12 @@ void Balance()
 			break;
 		case '3': {
 			system("cls");
-			cout << "\n\n\n\n\n"; 
 			currentUser.loadUserInformation();
 			if (currentUser.displayCard() == false) {
 				Balance();
 			}
 			else {
-				cout << "\t\t\t    1.Изменить пароль карты." << endl;
+				cout << "\t\t\t    1.Изменить пароль карты" << endl;
 				cout << "\t\t\t\t2.Удалить карту" << endl;
 				cout << "\t\t\t\      Esc.Вернуться в меню" << endl;
 				int choice = _getch();
@@ -52,8 +51,10 @@ void Balance()
 				case'2':
 					system("cls");
 					int choice;
-					center();cout << "\t\t\t   Вы уверены?" << endl;
-					cout << "\t\t\t\t   1.Да " << "2.Нет";
+					center();cout << "------------------------------------------------------------" << endl;
+					cout << "\t\t\t\t   Вы уверены?" << endl;
+					cout << "\t\t\t\t   1.Да " << "2.Нет" << endl;
+					tab();cout << "------------------------------------------------------------" << endl;
 					choice = _getch();
 					switch (choice) {
 					case '1':

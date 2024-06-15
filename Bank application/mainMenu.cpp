@@ -41,8 +41,7 @@ void mainMenu()
 					login = true;
 					system("cls");
 					bank_logo();
-					cout << endl;
-					tab();tab(); cout << "     Добро пожаловать!" << endl;
+					cout << "\t\t\t Добро пожаловать!" << endl;
 					Sleep(1000);
 					system("cls");
 					UserMenu();
@@ -71,8 +70,7 @@ void mainMenu()
 					login = true;
 					system("cls");
 					bank_logo();
-					cout << endl;
-					tab();tab(); cout << "     Добро пожаловать!" << endl;
+					cout << "\t\t\t  Добро пожаловать!" << endl;
 					Sleep(1000);
 					system("cls");
 					adminMenu();
@@ -99,8 +97,8 @@ void mainMenu()
 			system("cls");
 			bank_logo();
 			cout << endl;
-			tab();tab();cout << "Вы действительно хотите выйти?" << endl;
-			tab();tab();cout << "1.Да " << "2.Нет" << endl;
+			tab();cout << "\t   Вы действительно хотите выйти?" << endl;
+			tab();tab();cout << "\t    1.Да " << "2.Нет" << endl;
 			int exitChoice;
 			exitChoice = _getch();
 			switch (exitChoice) {
