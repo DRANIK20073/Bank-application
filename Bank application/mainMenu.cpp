@@ -24,7 +24,6 @@ void mainMenu()
 			while (login == false) {
 				system("cls");
 				bank_logo();
-				cout << endl;
 				if (newUser.loginUser() == true) {
 					ofstream fout("CurrentUser.txt");
 					fout << newUser.getLastName() << " ";
@@ -32,6 +31,7 @@ void mainMenu()
 					fout << newUser.getlogin() << " ";
 					fout << newUser.getPassword() << " ";
 					fout << newUser.getBalance() << " ";
+					fout << newUser.getBan() << " ";
 					fout << newUser.getCardNum() << " ";
 					fout << newUser.getCardExpiration() << " ";
 					fout << newUser.getCardCVV() << " ";
@@ -60,7 +60,6 @@ void mainMenu()
 			while (login == false) {
 				system("cls");
 				bank_logo();
-				cout << endl;
 				if (admin.adminLogin() == true) {
 					ofstream fout("CurrentAdmin.txt");
 					fout << admin.getLastName() << " ";
@@ -90,7 +89,6 @@ void mainMenu()
 			//Регистрация
 			system("cls");
 			bank_logo();
-			cout << endl;
 			newUser.registration();
 			Sleep(1000);
 			system("cls");

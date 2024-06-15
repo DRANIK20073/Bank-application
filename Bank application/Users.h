@@ -41,6 +41,8 @@ public:
 
 	string getPassword();
 
+	string getBan();
+
 	string getCardNum();
 
 	string getCardExpiration();

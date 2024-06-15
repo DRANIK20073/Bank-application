@@ -6,7 +6,6 @@ void UserMenu()
 
 	//Меню
 	bank_logo();
-	cout << endl;
 	tab();tab(); cout << "	1.Счет" << endl;
 	tab();tab(); cout << "	2.Конвертер валют" << endl;
 	tab();tab(); cout << "	3.Кредит" << endl;

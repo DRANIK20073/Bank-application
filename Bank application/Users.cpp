@@ -21,7 +21,7 @@ string generateRandomString(int length) {
 
 //Регистрация
 void Users::registration() {
-	cout << "Фамилия: ";
+	cout << "\t   Фамилия: ";
 	while (true) {
 		char ch = _getch();
 		if (ch == '\r') {
@@ -46,7 +46,7 @@ void Users::registration() {
 		}
 	}
 	cout << endl;
-	cout << "Имя: ";
+	cout << "\t   Имя: ";
 	while (true) {
 		char ch = _getch();
 		if (ch == '\r') {
@@ -71,12 +71,22 @@ void Users::registration() {
 		}
 	}
 	cout << endl;
-	cout << "Логин: ";
+	cout << "\t   Логин(не менее 5 символов): ";
 	while (true) {
 		char ch = _getch();
 		if (ch == '\r') {
-			if (!login.empty()) {
+			if (login.length() >= 5) {
 				break;
+			}
+			else {
+				system("cls");
+				bank_logo();
+				cout << "\n    Логин должен содержать не менее 5 символов. Повторите ввод." << endl;
+				Sleep(1000);
+				system("cls");
+				bank_logo();
+				login = "";
+				cout << "\t   Логин (не менее 5 символов): ";
 			}
 		}
 		else if (ch == 27) {
@@ -96,12 +106,22 @@ void Users::registration() {
 		}
 	}
 	cout << endl;
-	cout << "Пароль: ";
+	cout << "\t   Пароль(не менее 8 символов): ";
 	while (true) {
 		char ch = _getch();
 		if (ch == '\r') {
-			if (!password.empty()) {
+			if (password.length() >= 8) {
 				break;
+			}
+			else {
+				system("cls");
+				bank_logo();
+				cout << "\n    Пароль должен содержать не менее 8 символов. Повторите ввод." << endl;
+				Sleep(1000);
+				system("cls");
+				bank_logo();
+				password = "";
+				cout << "\t   Пароль (не менее 8 символов): ";
 			}
 		}
 		else if (ch == 27) {
@@ -353,6 +373,21 @@ string Users::getPassword()
 	return password;
 }
 
+string Users::getBan()
+{
+	ifstream fin("CurrentUser.txt");
+	string line;
+
+	while (getline(fin, line)) {
+		stringstream ss(line);
+		ss >> lastName >> name >> login >> password >> balance >> ban >> cardNumber >> cardExpiration >> cardCVV >> cardPassword;
+	}
+
+	fin.close();
+
+	return ban;
+}
+
 //Данные карты
 string Users::getCardNum()
 {
@@ -473,9 +508,33 @@ void Users::addBalance()
 	Sleep(800);
 }
 
+bool isDigitsOnly(const string& str) {
+	return all_of(str.begin(), str.end(), ::isdigit);
+}
+
+
+
 //Создать карту
 void Users::addCard()
-{
+{	
+	ifstream currentUserFile2("CurrentUser.txt");
+	if (currentUserFile2.is_open()) {
+		string line;
+		getline(currentUserFile2, line);
+		stringstream ss(line);
+		ss >> lastName >> name >> login >> password >> balance >> ban >> cardNumber >> cardExpiration >> cardCVV >> cardPassword;
+		currentUserFile2.close();
+	}
+
+	if (!cardNumber.empty()) {
+		system("cls");
+		center(); cout << "\t\t------------------------------------------------------------" << endl;
+		cout << "\t\tУ вас уже есть карта, невозможно создать новую." << endl;
+		cout << "\t\t------------------------------------------------------------" << endl;
+		Sleep(1500);
+		Balance();
+	}
+
 	//Номер карты
 	cardNumber = generateRandomString(16);
 
@@ -499,8 +558,52 @@ void Users::addCard()
 	cardCVV = generateRandomString(3);
 
 	//Пароль
-	cout << "Введите пароль для карты(4 цифры): ";
-	cin >> cardPassword;
+	while (true) {
+		center();cout << "------------------------------------------------------------" << endl;
+		cout << "\t\t      Введите пароль для карты (4 цифры): ";
+		cardPassword.clear(); 
+		while (true) {
+			char ch = _getch();
+
+			if (ch == '\r') {
+				break; 
+			}
+			else if (ch == 27) { 
+				system("cls");
+				Balance();
+			}
+			else if (ch == '\b') { 
+				if (!cardPassword.empty()) {
+					cout << "\b \b";
+					cardPassword.pop_back();
+				}
+			}
+			else if (isdigit(ch)) { 
+				if (cardPassword.length() < 4) { 
+					cout << ch;
+					cardPassword += ch;
+				}
+			}
+		}
+
+		if (cardPassword.length() != 4) {
+			cout << endl;
+			cout << "\t\t      Пароль должен состоять ровно из 4 цифр." << endl;
+			Sleep(1500);
+			system("cls");
+		}
+		else if (!isDigitsOnly(cardPassword)) {
+			cout << endl;
+			cout << "\t\t      В пароле не должны присутствовать буквы." << endl;
+			Sleep(1500);
+			system("cls");
+		}
+		else {
+			cout << endl << "Карта успешно создана." << endl;
+			Sleep(800);
+			break; 
+		}
+	}
 
 	ifstream fin("Users.txt");
 	ofstream fout("temp.txt");
@@ -531,8 +634,6 @@ void Users::addCard()
 	ofstream currentUserFile("CurrentUser.txt");
 	currentUserFile << lastName << " " << name << " " << login << " " << password << " " << balance << " " << ban << " " << cardNumber << " " << cardExpiration << " " << cardCVV << " " << cardPassword;
 	currentUserFile.close();
-
-	cout << "Карта успешно добавлена!" << endl;
 }
 
 //Вид карты
@@ -548,15 +649,15 @@ bool Users::displayCard()
 		return false;
 	}
 	else {
-		cout << " **********************************" << endl;
-		cout << " * Триорбанк                      *" << endl;
-		cout << " *                                *" << endl;
-		cout << " *                                *" << endl;
-		cout << " * " << CardNumber << "               *" << endl;
-		cout << " *                                *" << endl;
-		cout << " * " << CardExpiration << "                      " << CardCVV << " *" << endl;
-		cout << " *                                *" << endl;
-		cout << " **********************************" << endl;
+		cout << "\t\t       **********************************" << endl;
+		cout << "\t\t       * ТриорБанк                      *" << endl;
+		cout << "\t\t       *                                *" << endl;
+		cout << "\t\t       *                                *" << endl;
+		cout << "\t\t       * " << CardNumber << "               *" << endl;
+		cout << "\t\t       *                                *" << endl;
+		cout << "\t\t       * " << CardExpiration << "                      " << CardCVV << " *" << endl;
+		cout << "\t\t       *                                *" << endl;
+		cout << "\t\t       **********************************" << endl;
 	}
 }
 
@@ -668,11 +769,55 @@ void Users::transferMoney() {
 void Users::changeCardPassword() {
 
 	string newCardPassword;
-	cout << "Введите новый пароль для карты: ";
-	cin >> newCardPassword;
-	cardPassword = newCardPassword;
+	while (true) {
+		center();cout << "------------------------------------------------------------" << endl;
+		cout << "\t\t Введите новый пароль для карты (4 цифры): ";
+		newCardPassword.clear();
+		while (true) {
+			char ch = _getch();
 
-	// Обновление Users.txt
+			if (ch == '\r') {
+				break;
+			}
+			else if (ch == 27) {
+				system("cls");
+				Balance();
+			}
+			else if (ch == '\b') {
+				if (!newCardPassword.empty()) {
+					cout << "\b \b";
+					newCardPassword.pop_back();
+				}
+			}
+			else if (isdigit(ch)) {
+				if (newCardPassword.length() < 4) {
+					cout << ch;
+					newCardPassword += ch;
+				}
+			}
+		}
+
+		if (newCardPassword.length() != 4) {
+			cout << endl;
+			cout << "\t\t      Пароль должен состоять ровно из 4 цифр." << endl;
+			Sleep(1500);
+			system("cls");
+		}
+		else if (!isDigitsOnly(newCardPassword)) {
+			cout << endl;
+			cout << "\t\t      В пароле не должны присутствовать буквы." << endl;
+			Sleep(1500);
+			system("cls");
+		}
+		else {
+			cout << endl;
+			cout << "\t\t         Пароль карты успешно изменен!" << endl;
+			Sleep(800);
+			break;
+		}
+	}
+	
+
 	ifstream fin("Users.txt");
 	ofstream fout("temp.txt");
 	string line;
@@ -703,8 +848,6 @@ void Users::changeCardPassword() {
 	currentUserFile << lastName << " " << name << " " << login << " " << password << " " << balance << " " << ban << " " << cardNumber << " " << cardExpiration << " " << cardCVV << " " << cardPassword;
 	currentUserFile.close();
 
-	cout << "Пароль карты успешно изменен!" << endl;
-	Sleep(800);
 }
 
 //Удалить карту

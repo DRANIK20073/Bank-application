@@ -32,14 +32,15 @@ void Balance()
 			break;
 		case '3': {
 			system("cls");
+			cout << "\n\n\n\n\n"; 
 			currentUser.loadUserInformation();
 			if (currentUser.displayCard() == false) {
 				Balance();
 			}
 			else {
-				cout << "1.Изменить пароль карты." << endl;
-				cout << "2.Удалить карту" << endl;
-				cout << "Esc.Вернуться в меню" << endl;
+				cout << "\t\t\t    1.Изменить пароль карты." << endl;
+				cout << "\t\t\t\t2.Удалить карту" << endl;
+				cout << "\t\t\t\      Esc.Вернуться в меню" << endl;
 				int choice = _getch();
 				switch (choice) {
 				case'1':
@@ -51,8 +52,8 @@ void Balance()
 				case'2':
 					system("cls");
 					int choice;
-					cout << "Вы уверены?" << endl;
-					cout << "1.Да " << "2.Нет";
+					center();cout << "\t\t\t   Вы уверены?" << endl;
+					cout << "\t\t\t\t   1.Да " << "2.Нет";
 					choice = _getch();
 					switch (choice) {
 					case '1':
@@ -66,7 +67,6 @@ void Balance()
 						Balance();
 						break;
 					}
-					break;
 				case 27:
 					system("cls");
 					Balance();
